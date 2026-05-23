@@ -41,5 +41,5 @@ yarn-error.*
 /android
 
 # Arquivos de instrução de IA
-claude.md
-agents.md
+CLAUDE.md
+AGENTS.md
