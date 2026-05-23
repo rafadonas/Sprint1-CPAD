@@ -9,12 +9,12 @@
 ---
 ## 👨‍💻🧑‍🔧 Participantes
 
-Pedro Henrique dos Santos Cardoso - RM: 563268
-Gabriel Gibin Leoncio – RM: 565462
-Rafael do Nascimento Silva – RM: 566263
-Rai Augusto Ribeiro – RM: 562870
-Guilherme Morais de Assis - RM: 564198
-Lucas Werpp Franco - RM: 556044
+- Pedro Henrique dos Santos Cardoso - RM: 563268
+- Gabriel Gibin Leoncio – RM: 565462
+- Rafael do Nascimento Silva – RM: 566263
+- Rai Augusto Ribeiro – RM: 562870
+- Guilherme Morais de Assis - RM: 564198
+- Lucas Werpp Franco - RM: 556044
 
 ## 📌 O Problema
 A falta de visibilidade e a dificuldade na gestão para o envio de equipes de roçada nas rodovias. Atualmente, o gestor não consegue visualizar de forma rápida e geográfica quais trechos são críticos e apresentam vegetação alta atrapalhando a pista.
