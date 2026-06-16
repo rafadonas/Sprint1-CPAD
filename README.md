@@ -1,51 +1,66 @@
-# 🛣️ Motiva App | Gestão de Vegetação
+# Motiva App - Gestão de Vegetação Rodoviária (Sprint 2)
 
-![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Expo](https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+O **Motiva App** é uma solução mobile desenvolvida para a concessionária Motiva, focada na monitoração e gestão de vegetação nas faixas de domínio das rodovias. O aplicativo permite que inspetores de campo identifiquem, registrem e acompanhem pontos críticos de vegetação alta que possam comprometer a segurança viária.
 
-> Projeto desenvolvido para a **Sprint 1** do desafio Motiva. Focado na ideação, prototipagem e estruturação inicial de um aplicativo mobile para otimizar o mapeamento de rodovias.
+## 🚀 Funcionalidades Principais
 
----
-## 👨‍💻🧑‍🔧 Participantes
+*   **Mapa de Riscos**: Visualização interativa com fundo geográfico (São Paulo) e marcadores coloridos que indicam o nível de risco (Baixo, Médio, Alto).
+*   **Fluxo de Registro**: Formulário completo para cadastro de ocorrências, incluindo quilometragem (KM), altura da grama, nível de risco e descrição detalhada.
+*   **Histórico Dinâmico**: Lista de todas as ocorrências registradas com atualização em tempo real após novos cadastros.
+*   **Detalhes da Ocorrência**: Tela rica em informações com fotos do local, status de risco, detalhes do inspetor e botão para despacho de equipe de roçagem.
+*   **Perfil do Inspetor**: Área dedicada ao usuário com estatísticas de relatos feitos e resolvidos.
+*   **Navegação Fluida**: Menu inferior funcional que permite transições rápidas entre todas as áreas do MVP.
 
-- Pedro Henrique dos Santos Cardoso - RM: 563268
-- Gabriel Gibin Leoncio – RM: 565462
-- Rafael do Nascimento Silva – RM: 566263
-- Rai Augusto Ribeiro – RM: 562870
-- Guilherme Morais de Assis - RM: 564198
-- Lucas Werpp Franco - RM: 556044
+## 🛠️ Tecnologias Utilizadas
 
-## 📌 O Problema
-A falta de visibilidade e a dificuldade na gestão para o envio de equipes de roçada nas rodovias. Atualmente, o gestor não consegue visualizar de forma rápida e geográfica quais trechos são críticos e apresentam vegetação alta atrapalhando a pista.
-
-## 👥 Público-Alvo
-O aplicativo foi desenhado para duas frentes de atuação:
-1. **🧑‍🔧 Operador de campo:** Registra os dados da via diretamente do local.
-2. **👨‍💻 Gestor de operações:** Utiliza o mapa interativo para analisar dados e despachar equipes.
-
-## 🎯 Ação Principal
-Registrar as condições da vegetação e fornecer ao gestor um **mapa interativo com indicadores de calor/risco** (marcadores em verde, amarelo e vermelho). Isso centraliza a informação e agiliza a tomada de decisão.
-
----
-
-## ⚙️ Escopo do MVP (Produto Mínimo Viável)
-Aqui estão as funcionalidades essenciais mapeadas para o protótipo e desenvolvimento:
-
-- [x] **Cadastro de Ocorrência:** Formulário com KM da rodovia, foto da situação, descrição, altura da grama e captura automática de GPS (Lat/Long).
-- [x] **Listagem em Mapa:** Visualização panorâmica de todas as ocorrências registradas em uma interface estilo Google Maps.
-- [x] **Classificação de Risco:** Tradução visual da urgência através de cores (🟢 Baixo | 🟡 Médio | 🔴 Alto).
-- [x] **Detalhes da Ocorrência:** Tela aprofundada com a foto real do trecho e botão para despacho de equipe.
-
----
+*   **Framework**: [Expo](https://expo.dev/) (React Native)
+*   **Linguagem**: TypeScript
+*   **Ícones**: @expo/vector-icons (MaterialCommunityIcons)
+*   **Estilização**: StyleSheet (Padrão React Native) com design Dark Mode.
+*   **Gerenciamento de Estado**: React Hooks (useState, useEffect).
 
 ## 📂 Estrutura do Projeto
-O projeto já se encontra estruturado para o início do desenvolvimento na Sprint 2, utilizando as melhores práticas de organização de pastas:
+
 ```text
-📦 motiva-app
- ┣ 📂 src
- ┃ ┣ 📂 components   # Componentes visuais reutilizáveis (Botões, Inputs, Cards)
- ┃ ┣ 📂 screens      # Telas completas do aplicativo (Mapa, Formulário, Detalhes)
- ┃ ┗ 📂 types        # Definições de tipagem do TypeScript
- ┣ 📜 App.tsx        # Arquivo raiz do projeto
- ┗ 📜 README.md
+motiva-app/
+├── assets/             # Imagens e ícones do projeto
+├── src/
+│   ├── components/     # Componentes reutilizáveis (BottomNav, OccurrenceCard)
+│   ├── screens/        # Telas (Map, History, Report, Detail, Profile)
+│   ├── types/          # Definições de tipos TypeScript (Interfaces)
+│   └── data/           # Mock de dados iniciais para a Sprint
+├── App.tsx             # Componente raiz e lógica de navegação principal
+└── package.json        # Dependências e scripts do projeto
+```
+
+## 📋 Como Rodar o Projeto
+
+1.  **Pré-requisitos**: Ter o Node.js instalado e o app **Expo Go** no celular (ou um emulador configurado).
+2.  **Instalação**:
+    ```bash
+    npm install
+    ```
+3.  **Execução**:
+    ```bash
+    npx expo start
+    ```
+4.  **Acesso**:
+    *   Escaneie o QR Code com o app **Expo Go** (Android) ou Câmera (iOS).
+    *   Pressione `w` no terminal para abrir a versão Web no navegador.
+
+## 🔄 Fluxo de Teste Sugerido
+
+1.  Abra o **Mapa** para ver os pontos críticos iniciais.
+2.  Clique no botão **"+"** verde no mapa ou acesse a aba **Relatar**.
+3.  Preencha o formulário e clique em **"Enviar Ocorrência"**.
+4.  Você será redirecionado para o **Histórico**, onde sua nova ocorrência aparecerá no topo.
+5.  Clique na ocorrência criada para ver os **Detalhes** e testar o botão **"Despachar Equipe"**.
+
+## 👥 Integrantes
+
+*   Rafael Donas - RM: (Seu RM)
+*   (Nome do Integrante) - RM: (RM)
+*   (Nome do Integrante) - RM: (RM)
+
+---
+*Projeto desenvolvido para a disciplina de Cross-Platform Application Development.*
