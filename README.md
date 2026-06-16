@@ -56,11 +56,19 @@ motiva-app/
 4.  Você será redirecionado para o **Histórico**, onde sua nova ocorrência aparecerá no topo.
 5.  Clique na ocorrência criada para ver os **Detalhes** e testar o botão **"Despachar Equipe"**.
 
+## 🎥 Demonstração em Vídeo
+
+Confira o vídeo com a demonstração do fluxo completo do aplicativo:
+*   [Link do Vídeo no YouTube](https://youtu.be/vOX8zfhRCqA)
+
 ## 👥 Integrantes
 
-*   Rafael Donas - RM: (Seu RM)
-*   (Nome do Integrante) - RM: (RM)
-*   (Nome do Integrante) - RM: (RM)
+*   Pedro Henrique dos Santos Cardoso - RM: 563268
+*   Gabriel Gibin Leoncio – RM: 565462
+*   Rafael do Nascimento Silva – RM: 566263
+*   Rai Augusto Ribeiro – RM: 562870
+*   Guilherme Morais de Assis - RM: 564198
+*   Lucas Werpp Franco - RM: 556044
 
 ---
 *Projeto desenvolvido para a disciplina de Cross-Platform Application Development.*
