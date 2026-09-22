@@ -2,6 +2,12 @@
 
 Aplicativo multiplataforma desenvolvido para apoiar a gestão das áreas verdes nas rodovias operadas pela Motiva. A solução reúne ocorrências de campo, classificação de risco, histórico de intervenções e recomendação do prazo de atendimento em uma experiência única para equipes de inspeção e operação.
 
+## 🎥 Demonstração da Sprint 3
+
+### [▶ Assistir ao vídeo completo no YouTube](https://youtu.be/QX9XWHr-NKw)
+
+[![Demonstração do Motiva Verde](https://img.youtube.com/vi/QX9XWHr-NKw/maxresdefault.jpg)](https://youtu.be/QX9XWHr-NKw)
+
 ## Status da Sprint 3
 
 O protótipo funcional está navegável por meio do Expo e foi validado em um emulador Android com Expo Go. A aplicação também possui suporte a iOS e Web pela mesma base de código. Todos os fluxos previstos para esta sprint utilizam dados mockados locais e possuem tratamento para sucesso, erro de formulário, busca sem resultados e listas vazias.
@@ -100,10 +106,6 @@ As verificações de tipos e dependências foram executadas com sucesso em 21/09
 - Automatizar testes de componentes e fluxos críticos.
 - Realizar testes de acessibilidade e desempenho em aparelhos físicos.
 - Migrar para Expo SDK 57 após a avaliação: o `expo-doctor` aponta uma regressão de memória do Hermes incluído no SDK 56, mantido nesta entrega por exigência do projeto.
-
-## Vídeo de demonstração
-
-- [Assistir à demonstração da Sprint 3 no YouTube](https://youtu.be/QX9XWHr-NKw)
 
 ## Integrantes
 
