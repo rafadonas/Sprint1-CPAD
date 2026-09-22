@@ -104,7 +104,6 @@ As verificações de tipos e dependências foram executadas com sucesso em 21/09
 ## Vídeo de demonstração
 
 - [Assistir à demonstração da Sprint 3 no YouTube](https://youtu.be/QX9XWHr-NKw)
-- O roteiro utilizado está disponível em [ROTEIRO_VIDEO.md](./ROTEIRO_VIDEO.md).
 
 ## Integrantes
 
