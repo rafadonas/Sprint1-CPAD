@@ -103,7 +103,8 @@ As verificações de tipos e dependências foram executadas com sucesso em 21/09
 
 ## Vídeo de demonstração
 
-O arquivo [ROTEIRO_VIDEO.md](./ROTEIRO_VIDEO.md) contém um roteiro de até três minutos. Depois da gravação, o link não listado do YouTube deve ser inserido no arquivo `ENTREGA_SPRINT3.txt`.
+- [Assistir à demonstração da Sprint 3 no YouTube](https://youtu.be/QX9XWHr-NKw)
+- O roteiro utilizado está disponível em [ROTEIRO_VIDEO.md](./ROTEIRO_VIDEO.md).
 
 ## Integrantes
 
