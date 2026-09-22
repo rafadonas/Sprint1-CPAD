@@ -106,6 +106,7 @@ export default function App() {
             ocorrencias={ocorrencias} 
             onSelectOccurrence={handleSelectOccurrence} 
             onNavigateToReport={() => handleNavigate('REPORT')}
+            onBack={() => setCurrentScreen('MAP')}
           />
         );
       case 'REPORT':

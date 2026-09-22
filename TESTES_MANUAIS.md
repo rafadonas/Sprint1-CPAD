@@ -20,6 +20,7 @@ Responsável: equipe Motiva Verde
 | CT-12 | Preferências do perfil | Alternar notificações e abrir Segurança, Ajuda e Sair | Atualizar o controle e exibir feedback sem bloquear a navegação | Switch e avisos globais responderam corretamente | Passou |
 | CT-13 | Voltar no Android | Em Detalhes, Formulário, Histórico e Perfil, pressionar o botão físico voltar | Retornar ao fluxo anterior sem encerrar inesperadamente o app | Tratamento de `hardwareBackPress` implementado para todas as telas internas | Repetir no emulador |
 | CT-14 | Interagir com o mapa geográfico | Arrastar o mapa, alterar a região visualizada e tocar em um marcador | Movimentar o mapa livremente e abrir os detalhes da ocorrência selecionada | OpenStreetMap respondeu ao gesto de arraste e o marcador da SP-270 abriu o KM 32 corretamente | Passou |
+| CT-15 | Retornar pelo cabeçalho do Histórico | Abrir Histórico pelo menu inferior e tocar na seta do cabeçalho | Retornar ao mapa sem interromper a sessão | O botão retornou ao mapa e preservou os dados da sessão | Passou |
 
 ## Verificações técnicas
 
