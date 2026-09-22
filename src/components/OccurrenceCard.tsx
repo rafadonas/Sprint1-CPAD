@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ocorrencia } from '../types';
+import { relativeDate, riskLabel, RISK_COLORS, STATUS_COLORS } from '../utils/occurrence';
 
 interface OccurrenceCardProps {
   occurrence: Ocorrencia;
@@ -9,41 +10,33 @@ interface OccurrenceCardProps {
 }
 
 export const OccurrenceCard: React.FC<OccurrenceCardProps> = ({ occurrence, onPress }) => {
-  const getRiscoColor = (risco: string) => {
-    switch (risco) {
-      case 'alto': return '#ff6366';
-      case 'medio': return '#ffb900';
-      case 'baixo': return '#00bc7c';
-      default: return '#a0a0a0';
-    }
-  };
-
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={`Ver ${occurrence.local} da ${occurrence.rodovia}`}>
       <View style={styles.header}>
-        <View style={[styles.iconContainer, { backgroundColor: `${getRiscoColor(occurrence.risco)}26` }]}>
-          <MaterialCommunityIcons name="alert" size={20} color={getRiscoColor(occurrence.risco)} />
+        <View style={[styles.iconContainer, { backgroundColor: `${RISK_COLORS[occurrence.risco]}26` }]}>
+          <MaterialCommunityIcons name="leaf" size={20} color={RISK_COLORS[occurrence.risco]} />
         </View>
         <View style={styles.headerInfo}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>{occurrence.local} · {occurrence.rodovia}</Text>
-            <View style={[styles.badge, { backgroundColor: getRiscoColor(occurrence.risco) }]}>
-              <Text style={styles.badgeText}>{occurrence.risco.charAt(0).toUpperCase() + occurrence.risco.slice(1)}</Text>
+            <Text style={styles.title} numberOfLines={1}>{occurrence.local} · {occurrence.rodovia}</Text>
+            <View style={[styles.badge, { backgroundColor: RISK_COLORS[occurrence.risco] }]}>
+              <Text style={styles.badgeText}>{riskLabel(occurrence.risco)}</Text>
             </View>
           </View>
-          <Text style={styles.description}>{occurrence.descricao.substring(0, 50)}...</Text>
+          <Text style={styles.description} numberOfLines={2}>{occurrence.descricao}</Text>
         </View>
       </View>
       <View style={styles.footer}>
         <View style={styles.meta}>
           <MaterialCommunityIcons name="clock-outline" size={14} color="#a0a0a0" />
-          <Text style={styles.metaText}>Há 2h</Text>
+          <Text style={styles.metaText}>{relativeDate(occurrence.data)}</Text>
         </View>
         <View style={styles.meta}>
           <MaterialCommunityIcons name="account-outline" size={14} color="#a0a0a0" />
           <Text style={styles.metaText}>{occurrence.inspetor}</Text>
         </View>
-        <Text style={[styles.status, { color: getRiscoColor(occurrence.risco) }]}>{occurrence.status}</Text>
+        {occurrence.foto ? <MaterialCommunityIcons name="camera-outline" size={15} color="#86EFAC" /> : null}
+        <Text style={[styles.status, { color: STATUS_COLORS[occurrence.status] }]}>{occurrence.status}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -51,12 +44,12 @@ export const OccurrenceCard: React.FC<OccurrenceCardProps> = ({ occurrence, onPr
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#1a1a1a',
-    borderRadius: 12,
+    backgroundColor: '#111C16',
+    borderRadius: 14,
     padding: 16,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#294133',
   },
   header: {
     flexDirection: 'row',
@@ -82,7 +75,9 @@ const styles = StyleSheet.create({
   title: {
     color: '#f9f9f9',
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
+    flex: 1,
+    marginRight: 8,
   },
   badge: {
     paddingHorizontal: 8,
@@ -95,29 +90,30 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   description: {
-    color: '#a0a0a0',
+    color: '#94A3B8',
     fontSize: 12,
+    lineHeight: 17,
   },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderTopWidth: 1,
-    borderTopColor: '#333',
+    borderTopColor: '#21362A',
     paddingTop: 12,
   },
   meta: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 12,
   },
   metaText: {
-    color: '#a0a0a0',
-    fontSize: 12,
+    color: '#94A3B8',
+    fontSize: 11,
     marginLeft: 4,
   },
   status: {
     marginLeft: 'auto',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
   },
 });

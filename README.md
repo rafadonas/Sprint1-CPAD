@@ -1,74 +1,115 @@
-# Motiva App - Gestão de Vegetação Rodoviária (Sprint 2)
+# Motiva Verde — Gestão Inteligente de Vegetação
 
-O **Motiva App** é uma solução mobile desenvolvida para a concessionária Motiva, focada na monitoração e gestão de vegetação nas faixas de domínio das rodovias. O aplicativo permite que inspetores de campo identifiquem, registrem e acompanhem pontos críticos de vegetação alta que possam comprometer a segurança viária.
+Aplicativo multiplataforma desenvolvido para apoiar a gestão das áreas verdes nas rodovias operadas pela Motiva. A solução reúne ocorrências de campo, classificação de risco, histórico de intervenções e recomendação do prazo de atendimento em uma experiência única para equipes de inspeção e operação.
 
-## 🚀 Funcionalidades Principais
+## Status da Sprint 3
 
-*   **Mapa de Riscos**: Visualização interativa com fundo geográfico (São Paulo) e marcadores coloridos que indicam o nível de risco (Baixo, Médio, Alto).
-*   **Fluxo de Registro**: Formulário completo para cadastro de ocorrências, incluindo quilometragem (KM), altura da grama, nível de risco e descrição detalhada.
-*   **Histórico Dinâmico**: Lista de todas as ocorrências registradas com atualização em tempo real após novos cadastros.
-*   **Detalhes da Ocorrência**: Tela rica em informações com fotos do local, status de risco, detalhes do inspetor e botão para despacho de equipe de roçagem.
-*   **Perfil do Inspetor**: Área dedicada ao usuário com estatísticas de relatos feitos e resolvidos.
-*   **Navegação Fluida**: Menu inferior funcional que permite transições rápidas entre todas as áreas do MVP.
+O protótipo funcional está navegável por meio do Expo e foi validado em um emulador Android com Expo Go. A aplicação também possui suporte a iOS e Web pela mesma base de código. Todos os fluxos previstos para esta sprint utilizam dados mockados locais e possuem tratamento para sucesso, erro de formulário, busca sem resultados e listas vazias.
 
-## 🛠️ Tecnologias Utilizadas
+| Funcionalidade | Status | Cobertura atual |
+| --- | --- | --- |
+| Mapa operacional | Concluída | Pontos por risco, busca, filtro por rodovia e risco, legenda e acesso aos detalhes |
+| Registro de ocorrência | Concluída | Foto simulada, rodovia, KM, altura, risco, descrição, localização e validações |
+| Histórico | Concluída | Busca, filtros por status, estado vazio e atualização após novo registro |
+| Detalhes e prioridade | Concluída | Dados da inspeção, recomendação, tags e linha do tempo expansível |
+| Despacho de equipe | Concluída | Confirmação no mobile, alteração para “Em análise” e registro no histórico |
+| Perfil | Concluída | Estatísticas derivadas dos mocks e ações com feedback |
+| Estados alternativos | Concluída | Erros de validação, zero resultados, lista vazia e ação já executada |
+| Experiência e acessibilidade | Concluída | Toasts, modal multiplataforma, áreas seguras do sistema, alvos acessíveis, labels e navegação contextual |
+| API e persistência | Pendente para Sprint 4 | Estado mantido apenas durante a sessão atual |
+| Mapa e câmera nativos | Pendente para Sprint 4 | Imagem e captura simuladas nesta sprint |
 
-*   **Framework**: [Expo](https://expo.dev/) (React Native)
-*   **Linguagem**: TypeScript
-*   **Ícones**: @expo/vector-icons (MaterialCommunityIcons)
-*   **Estilização**: StyleSheet (Padrão React Native) com design Dark Mode.
-*   **Gerenciamento de Estado**: React Hooks (useState, useEffect).
+## Fluxos implementados
 
-## 📂 Estrutura do Projeto
+1. Consultar os pontos de vegetação no mapa e alternar filtros.
+2. Buscar uma ocorrência por KM, rodovia ou descrição.
+3. Registrar uma ocorrência com validação completa dos campos.
+4. Consultar e filtrar o histórico por etapa de atendimento.
+5. Abrir os detalhes, consultar a linha do tempo e despachar uma equipe.
+6. Consultar o perfil e as estatísticas do inspetor.
 
-```text
-motiva-app/
-├── assets/             # Imagens e ícones do projeto
-├── src/
-│   ├── components/     # Componentes reutilizáveis (BottomNav, OccurrenceCard)
-│   ├── screens/        # Telas (Map, History, Report, Detail, Profile)
-│   ├── types/          # Definições de tipos TypeScript (Interfaces)
-│   └── data/           # Mock de dados iniciais para a Sprint
-├── App.tsx             # Componente raiz e lógica de navegação principal
-└── package.json        # Dependências e scripts do projeto
+### Refinamentos de produto
+
+- Navegação contextual: detalhes e formulário retornam à tela que originou o fluxo.
+- Feedback global não bloqueante para cadastro, despacho e preferências.
+- Confirmação de despacho própria e consistente em Android, iOS e Web.
+- Filtros adaptáveis para telas estreitas e cartões resistentes a textos maiores.
+- Perfil com indicadores operacionais, taxa de resolução e preferências interativas.
+- Nomes de risco, estados selecionados e controles revisados para leitores de tela.
+- Respeito às áreas seguras do Android e iOS, evitando sobreposição com relógio, bateria e barra de gestos.
+
+## Dados mockados
+
+Os mocks cobrem três rodovias (`BR-101`, `SP-270` e `SP-280`), os riscos baixo, médio e alto e os status Pendente, Em análise e Concluído. Cada ocorrência contém coordenadas, altura estimada, responsável, tags, prazo recomendado e eventos históricos. Novos registros e mudanças de status atualizam toda a interface durante a sessão.
+
+## Tecnologias
+
+- Expo 56 e React Native 0.85
+- React 19 e TypeScript
+- React Native Web
+- Material Community Icons
+- Estado local com React Hooks
+
+Não houve migração para Flutter; o projeto permanece em React Native com Expo, preservando a stack adotada nas sprints anteriores.
+
+## Como executar
+
+Pré-requisito: Node.js 20 ou superior.
+
+```bash
+npm install
+npm start
 ```
 
-## 📋 Como Rodar o Projeto
+No terminal do Expo, pressione `a` para Android, `i` para iOS ou `w` para Web. Também é possível escanear o QR Code usando o Expo Go.
 
-1.  **Pré-requisitos**: Ter o Node.js instalado e o app **Expo Go** no celular (ou um emulador configurado).
-2.  **Instalação**:
-    ```bash
-    npm install
-    ```
-3.  **Execução**:
-    ```bash
-    npx expo start
-    ```
-4.  **Acesso**:
-    *   Escaneie o QR Code com o app **Expo Go** (Android) ou Câmera (iOS).
-    *   Pressione `w` no terminal para abrir a versão Web no navegador.
+### Executar no emulador Android
 
-## 🔄 Fluxo de Teste Sugerido
+1. Abra o Android Studio e acesse **More Actions > Virtual Device Manager**.
+2. Inicie um dispositivo virtual Android.
+3. Na raiz do projeto, execute:
 
-1.  Abra o **Mapa** para ver os pontos críticos iniciais.
-2.  Clique no botão **"+"** verde no mapa ou acesse a aba **Relatar**.
-3.  Preencha o formulário e clique em **"Enviar Ocorrência"**.
-4.  Você será redirecionado para o **Histórico**, onde sua nova ocorrência aparecerá no topo.
-5.  Clique na ocorrência criada para ver os **Detalhes** e testar o botão **"Despachar Equipe"**.
+```bash
+npm install
+npx expo start --android
+```
 
-## 🎥 Demonstração em Vídeo
+O Expo abrirá o aplicativo no emulador. Se o servidor já estiver em execução, pressione `a` no terminal. Para atualizar o bundle após uma alteração, pressione `r`.
 
-Confira o vídeo com a demonstração do fluxo completo do aplicativo:
-*   [Link do Vídeo no YouTube](https://youtu.be/vOX8zfhRCqA)
+> O Expo Go é o aplicativo que carrega o projeto; o dispositivo virtual criado pelo Android Studio é o emulador utilizado na demonstração.
 
-## 👥 Integrantes
+### Validação técnica
 
-*   Pedro Henrique dos Santos Cardoso - RM: 563268
-*   Gabriel Gibin Leoncio – RM: 565462
-*   Rafael do Nascimento Silva – RM: 566263
-*   Rai Augusto Ribeiro – RM: 562870
-*   Guilherme Morais de Assis - RM: 564198
-*   Lucas Werpp Franco - RM: 556044
+```bash
+npm run typecheck
+npx expo install --check
+npx expo export --platform web
+```
 
----
-*Projeto desenvolvido para a disciplina de Cross-Platform Application Development.*
+As verificações de tipos e dependências foram executadas com sucesso em 21/09/2026. O aplicativo também foi iniciado e inspecionado no emulador Android. O relatório detalhado está em [TESTES_MANUAIS.md](./TESTES_MANUAIS.md).
+
+## Pendências e plano para a Sprint 4
+
+- Substituir os mocks por API autenticada e banco de dados persistente.
+- Integrar mapa geográfico nativo, GPS e captura real de imagens.
+- Incorporar dados de sensoriamento remoto e classificação por IA.
+- Sincronizar registros feitos sem conexão quando a rede retornar.
+- Adicionar autenticação, permissões por perfil e notificações push.
+- Automatizar testes de componentes e fluxos críticos.
+- Realizar testes de acessibilidade e desempenho em aparelhos físicos.
+- Migrar para Expo SDK 57 após a avaliação: o `expo-doctor` aponta uma regressão de memória do Hermes incluído no SDK 56, mantido nesta entrega por exigência do projeto.
+
+## Vídeo de demonstração
+
+O arquivo [ROTEIRO_VIDEO.md](./ROTEIRO_VIDEO.md) contém um roteiro de até três minutos. Depois da gravação, o link não listado do YouTube deve ser inserido no arquivo `ENTREGA_SPRINT3.txt`.
+
+## Integrantes
+
+- Pedro Henrique dos Santos Cardoso — RM 563268
+- Gabriel Gibin Leoncio — RM 565462
+- Rafael do Nascimento Silva — RM 566263
+- Rai Augusto Ribeiro — RM 562870
+- Guilherme Morais de Assis — RM 564198
+- Lucas Werpp Franco — RM 556044
+
+Projeto acadêmico da disciplina Cross-Platform Application Development, ministrada por Hercules Lima Ramos.
