@@ -8,7 +8,7 @@ O protótipo funcional está navegável por meio do Expo e foi validado em um em
 
 | Funcionalidade | Status | Cobertura atual |
 | --- | --- | --- |
-| Mapa operacional | Concluída | Pontos por risco, busca, filtro por rodovia e risco, legenda e acesso aos detalhes |
+| Mapa operacional | Concluída | OpenStreetMap interativo, zoom, arraste, pontos georreferenciados, busca, filtros, legenda e acesso aos detalhes |
 | Registro de ocorrência | Concluída | Foto simulada, rodovia, KM, altura, risco, descrição, localização e validações |
 | Histórico | Concluída | Busca, filtros por status, estado vazio e atualização após novo registro |
 | Detalhes e prioridade | Concluída | Dados da inspeção, recomendação, tags e linha do tempo expansível |
@@ -17,7 +17,7 @@ O protótipo funcional está navegável por meio do Expo e foi validado em um em
 | Estados alternativos | Concluída | Erros de validação, zero resultados, lista vazia e ação já executada |
 | Experiência e acessibilidade | Concluída | Toasts, modal multiplataforma, áreas seguras do sistema, alvos acessíveis, labels e navegação contextual |
 | API e persistência | Pendente para Sprint 4 | Estado mantido apenas durante a sessão atual |
-| Mapa e câmera nativos | Pendente para Sprint 4 | Imagem e captura simuladas nesta sprint |
+| Câmera e GPS nativos | Pendente para Sprint 4 | Captura de imagem e localização do aparelho ainda são simuladas |
 
 ## Fluxos implementados
 
@@ -37,6 +37,7 @@ O protótipo funcional está navegável por meio do Expo e foi validado em um em
 - Perfil com indicadores operacionais, taxa de resolução e preferências interativas.
 - Nomes de risco, estados selecionados e controles revisados para leitores de tela.
 - Respeito às áreas seguras do Android e iOS, evitando sobreposição com relógio, bateria e barra de gestos.
+- Mapa geográfico interativo com OpenStreetMap, movimentação, zoom e marcadores ligados às coordenadas das ocorrências.
 
 ## Dados mockados
 
@@ -47,6 +48,7 @@ Os mocks cobrem três rodovias (`BR-101`, `SP-270` e `SP-280`), os riscos baixo,
 - Expo 56 e React Native 0.85
 - React 19 e TypeScript
 - React Native Web
+- OpenStreetMap, Leaflet e React Native WebView
 - Material Community Icons
 - Estado local com React Hooks
 
@@ -91,7 +93,7 @@ As verificações de tipos e dependências foram executadas com sucesso em 21/09
 ## Pendências e plano para a Sprint 4
 
 - Substituir os mocks por API autenticada e banco de dados persistente.
-- Integrar mapa geográfico nativo, GPS e captura real de imagens.
+- Integrar GPS e captura real de imagens e avaliar suporte offline ao mapa.
 - Incorporar dados de sensoriamento remoto e classificação por IA.
 - Sincronizar registros feitos sem conexão quando a rede retornar.
 - Adicionar autenticação, permissões por perfil e notificações push.

@@ -6,7 +6,7 @@ Apresentar o Motiva Verde e explicar que o app centraliza o monitoramento e a pr
 
 ## 0:20–0:50 — Mapa operacional
 
-Mostrar os marcadores por risco, alternar rodovia e nível de risco, fazer uma busca e limpar os filtros. Destacar o estado sem resultados.
+Arrastar e aproximar o OpenStreetMap, mostrar os marcadores georreferenciados por risco, alternar rodovia e nível de risco, fazer uma busca e limpar os filtros. Destacar o estado sem resultados.
 
 ## 0:50–1:30 — Nova ocorrência
 
