@@ -32,6 +32,21 @@ Hoje a roçagem na faixa de domínio costuma seguir um cronograma fixo, e os reg
 
 O impacto esperado é menos roçagem desnecessária, atendimento mais rápido dos trechos críticos, mais segurança viária e evidências para responder ao poder concedente. Os detalhes estão no [plano de negócio](./PLANO_DE_NEGOCIO.md).
 
+## Plano de negócio (resumo)
+
+O documento completo está em [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md). Os valores são estimativas da equipe e precisam ser validados em um piloto.
+
+| Tópico | Resumo |
+| --- | --- |
+| **Proposta de valor** | Trocar a roçagem por calendário pela roçagem por risco, com registro em campo (foto, GPS e KM), mapa de prioridades, despacho e evidência auditável para o poder concedente |
+| **Público-alvo** | Diretorias de engenharia e conservação das concessionárias da Motiva. Mercado secundário: outras concessionárias e terceirizadas de conservação |
+| **Personas** | Carlos, inspetor de campo · Ana, coordenadora do CCO · Roberto, gerente de conservação |
+| **Modelo de receita** | SaaS B2B por km monitorado: R$ 40 a R$ 65/km/mês. Piloto de 90 dias por R$ 25 mil, taxa de implantação e serviço gerenciado opcional |
+| **Custos operacionais** | ≈ R$ 60,5 mil/mês (equipe, nuvem, ferramentas e suporte). Ponto de equilíbrio em ≈ 1.500 km monitorados |
+| **Impacto para a Motiva** | Redução estimada de 15% a 25% das roçagens desnecessárias, atendimento em até 24 h para risco alto, menos exposição a notificações contratuais e ganhos de segurança viária e ESG |
+| **Diferenciais** | Foco em vegetação, uso prático na viatura, ciclo completo da constatação à conclusão e uma única base para Android, iOS e Web |
+| **Principais riscos** | Adesão dos inspetores, integração com sistemas legados, falta de sinal em trechos rurais, LGPD e ciclo de venda longo. Cada um tem mitigação definida no documento |
+
 ## Instalação do APK (Android)
 
 1. No celular Android, abra o link [**motiva-verde.apk**](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) e faça o download.
