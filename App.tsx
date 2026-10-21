@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { BackHandler, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, BackHandler, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { MOCK_OCORRENCIAS } from './src/data/mock';
+import { loadOccurrences, resetOccurrences, saveOccurrences } from './src/services/storage';
 import { Ocorrencia } from './src/types';
 import { BottomNav, ScreenName } from './src/components/BottomNav';
 import { MapScreen } from './src/screens/MapScreen';
@@ -19,6 +20,18 @@ export default function App() {
   const [detailOrigin, setDetailOrigin] = useState<ScreenName>('MAP');
   const [reportOrigin, setReportOrigin] = useState<ScreenName>('MAP');
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    loadOccurrences().then((stored) => {
+      setOcorrencias(stored);
+      setHydrated(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (hydrated) saveOccurrences(ocorrencias);
+  }, [hydrated, ocorrencias]);
 
   const showToast = (title: string, message: string, kind: ToastMessage['kind'] = 'success') => {
     setToast({ id: Date.now(), title, message, kind });
@@ -66,28 +79,39 @@ export default function App() {
     showToast('Ocorrência registrada', `${newOccurrence.local} foi adicionada ao histórico e aguarda análise.`);
   };
 
-  const handleDispatch = (id: string) => {
-    setOcorrencias((current) => current.map((item) => item.id === id ? {
+  const updateOccurrence = (id: string, changes: Pick<Ocorrencia, 'status' | 'previsaoIntervencao'>, event: { titulo: string; descricao: string }) => {
+    const apply = (item: Ocorrencia): Ocorrencia => ({
       ...item,
+      ...changes,
+      historico: [...item.historico, { data: new Date().toISOString(), ...event }],
+    });
+    setOcorrencias((current) => current.map((item) => item.id === id ? apply(item) : item));
+    setSelectedOccurrence((current) => current?.id === id ? apply(current) : current);
+  };
+
+  const handleDispatch = (id: string) => {
+    const occurrence = ocorrencias.find((item) => item.id === id);
+    updateOccurrence(id, {
       status: 'Em análise',
-      previsaoIntervencao: item.risco === 'alto' ? 'Até 24 horas' : 'Até 72 horas',
-      historico: [...item.historico, {
-        data: new Date().toISOString(),
-        titulo: 'Equipe despachada',
-        descricao: 'Ordem de serviço enviada para a equipe de manutenção.',
-      }],
-    } : item));
-    setSelectedOccurrence((current) => current?.id === id ? {
-      ...current,
-      status: 'Em análise',
-      previsaoIntervencao: current.risco === 'alto' ? 'Até 24 horas' : 'Até 72 horas',
-      historico: [...current.historico, {
-        data: new Date().toISOString(),
-        titulo: 'Equipe despachada',
-        descricao: 'Ordem de serviço enviada para a equipe de manutenção.',
-      }],
-    } : current);
+      previsaoIntervencao: occurrence?.risco === 'alto' ? 'Até 24 horas' : 'Até 72 horas',
+    }, {
+      titulo: 'Equipe despachada',
+      descricao: 'Ordem de serviço enviada para a equipe de manutenção.',
+    });
     showToast('Equipe acionada', 'A ordem de serviço foi criada e a ocorrência está em análise.');
+  };
+
+  const handleConclude = (id: string) => {
+    updateOccurrence(id, { status: 'Concluído', previsaoIntervencao: 'Concluída' }, {
+      titulo: 'Serviço concluído',
+      descricao: 'Roçagem executada e trecho liberado pela equipe de manutenção.',
+    });
+    showToast('Atendimento concluído', 'O trecho foi liberado e a ocorrência foi encerrada.');
+  };
+
+  const handleResetData = async () => {
+    setOcorrencias(await resetOccurrences());
+    showToast('Dados restaurados', 'As ocorrências de demonstração foram recarregadas.', 'info');
   };
 
   const renderScreen = () => {
@@ -117,19 +141,29 @@ export default function App() {
           />
         );
       case 'PROFILE':
-        return <ProfileScreen ocorrencias={ocorrencias} onBack={() => setCurrentScreen('MAP')} onFeedback={showToast} />;
+        return <ProfileScreen ocorrencias={ocorrencias} onBack={() => setCurrentScreen('MAP')} onFeedback={showToast} onResetData={handleResetData} />;
       case 'DETAIL':
         return selectedOccurrence ? (
           <DetailScreen 
             occurrence={selectedOccurrence} 
             onBack={() => setCurrentScreen(detailOrigin)}
             onDispatch={handleDispatch}
+            onConclude={handleConclude}
           />
         ) : <MapScreen ocorrencias={ocorrencias} onSelectOccurrence={handleSelectOccurrence} onNavigateToReport={() => handleNavigate('REPORT')} />;
       default:
         return <MapScreen ocorrencias={ocorrencias} onSelectOccurrence={handleSelectOccurrence} onNavigateToReport={() => setCurrentScreen('REPORT')} />;
     }
   };
+
+  if (!hydrated) {
+    return (
+      <View style={[styles.container, styles.loading]}>
+        <StatusBar style="light" />
+        <ActivityIndicator size="large" color="#4ADE80" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -154,5 +188,9 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+  },
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
