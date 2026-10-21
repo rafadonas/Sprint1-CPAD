@@ -5,8 +5,11 @@
   "dependencies": {
     "@expo/metro-runtime": "~56.0.21",
     "@expo/vector-icons": "^15.0.2",
-    "expo": "~56.0.22",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~56.0.23",
     "expo-font": "~56.0.7",
+    "expo-image-picker": "~56.0.25",
+    "expo-location": "~56.0.26",
     "expo-status-bar": "~56.0.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",

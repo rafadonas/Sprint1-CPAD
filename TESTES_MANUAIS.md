@@ -1,4 +1,4 @@
-# Relatório de Testes Manuais — Sprint 3
+# Relatório de Testes — Sprints 3 e 4
 
 Data da execução: 21/09/2026  
 Ambiente: Expo Web, navegador Chromium, build de produção Web e Expo Go em emulador Android
@@ -35,3 +35,47 @@ Responsável: equipe Motiva Verde
 - Foto, geolocalização e mapa são simulados para permitir demonstração estável sem permissões externas.
 - A confirmação de despacho usa diálogo nativo no Android/iOS e feedback direto na Web, preservando o mesmo resultado funcional.
 - A validação final em dispositivo físico deve ser repetida antes da gravação do vídeo.
+
+---
+
+# Sprint 4 — Correções e validação da versão final
+
+Data da execução: 21/10/2026
+Ambientes: build de produção Web (Chromium, viewport 375×812) e APK de release instalado em emulador Android (API 34) pelo GitHub Actions
+
+## Correção dos pontos observados na Sprint 3
+
+| Ponto observado | Correção |
+| --- | --- |
+| Dados voltavam ao estado inicial quando o app era reiniciado | Persistência local com AsyncStorage (`src/services/storage.ts`) |
+| Foto simulada | Câmera e galeria reais com `expo-image-picker`, pré-visualização e remoção |
+| Geolocalização simulada | GPS com `expo-location`, precisão exibida e fallback por rodovia quando a permissão é negada |
+| CT-13 pendente de repetição no emulador | Repetido no APK instalado (CT-21) |
+| Validação em dispositivo nativo | APK instalado e percorrido automaticamente no emulador (CT-20) |
+
+## Casos de teste da Sprint 4
+
+| ID | Cenário testado | Procedimento | Resultado esperado | Resultado obtido | Status |
+| --- | --- | --- | --- | --- | --- |
+| CT-16 | Persistência após reinício | Registrar ocorrência (KM 155) e recarregar o app | Ocorrência continua no histórico | Histórico manteve 6 ocorrências depois do recarregamento | Passou |
+| CT-17 | Localização negada | Abrir "Nova ocorrência" com a permissão de localização negada | Aviso e uso da referência da rodovia | Aviso "Permissão de localização negada" e coordenadas da BR-101 com a tag "Localização aproximada" | Passou |
+| CT-18 | Ciclo completo de atendimento | Despachar e depois concluir a ocorrência KM 155 | Status Pendente → Em análise → Concluído, com 3 eventos na linha do tempo | Os status e os 3 eventos foram registrados e as ações foram confirmadas por modal | Passou |
+| CT-19 | Restaurar dados de demonstração | Perfil > Restaurar dados > Confirmar | Volta às 5 ocorrências iniciais | Relatos passaram de 6 para 5 e o toast de confirmação apareceu | Passou |
+| CT-20 | Instalação do APK | Instalar o APK de release e abrir o app no emulador | App instala, abre o mapa e não encerra | APK instalado. O mapa carregou os tiles do OpenStreetMap e os 5 marcadores, e não houve FATAL EXCEPTION no logcat | Passou |
+| CT-21 | Botão voltar no Android (repete o CT-13) | Abrir Formulário e Histórico e pressionar o botão voltar | Retorna ao mapa sem fechar o app | Formulário → voltar e Histórico → voltar retornaram ao mapa, com o processo do app ainda ativo | Passou |
+| CT-22 | Foto pela câmera em aparelho físico | Relatar > Tirar foto > Enviar e abrir os detalhes | A foto aparece no topo dos detalhes | Validar na gravação do vídeo final | Validar no aparelho |
+
+## Verificações técnicas da Sprint 4
+
+| Verificação | Resultado | Status |
+| --- | --- | --- |
+| `npm run typecheck` | Nenhum erro de tipagem | Passou |
+| `npm run build:web` | Bundle gerado em `dist/` | Passou |
+| `npx expo-doctor` | 21 de 22 verificações. Única falha: a regressão conhecida do Hermes no SDK 56 | Passou com ressalva |
+| Build do APK (GitHub Actions) | `motiva-verde.apk` gerado por Expo Prebuild + Gradle, com o GPS capturado no emulador (precisão de 5 m) | Passou |
+
+## Ajuste após a validação no APK
+
+- Os filtros do Histórico ficavam parcialmente encobertos pela lista no Android por causa de uma altura fixa. A altura agora se ajusta ao conteúdo.
+
+Capturas do APK no emulador: [mapa](./docs/screenshots/01-mapa.png), [formulário com GPS](./docs/screenshots/02-formulario.png) e [perfil](./docs/screenshots/06-perfil.png).

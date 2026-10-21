@@ -4,15 +4,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ocorrencia } from '../types';
 import { ToastKind } from '../components/AppToast';
+import { ConfirmModal } from '../components/ConfirmModal';
 
 interface ProfileScreenProps {
   onBack: () => void;
   ocorrencias: Ocorrencia[];
   onFeedback: (title: string, message: string, kind?: ToastKind) => void;
+  onResetData: () => void;
 }
 
-export const ProfileScreen = ({ onBack, ocorrencias, onFeedback }: ProfileScreenProps) => {
+export const ProfileScreen = ({ onBack, ocorrencias, onFeedback, onResetData }: ProfileScreenProps) => {
   const [notifications, setNotifications] = useState(true);
+  const [confirmReset, setConfirmReset] = useState(false);
   const concluded = ocorrencias.filter((item) => item.status === 'Concluído').length;
   const analysing = ocorrencias.filter((item) => item.status === 'Em análise').length;
 
@@ -46,7 +49,7 @@ export const ProfileScreen = ({ onBack, ocorrencias, onFeedback }: ProfileScreen
         </View>
 
         <View style={styles.performanceCard}>
-          <View style={styles.performanceHeader}><View><Text style={styles.performanceTitle}>Taxa de resolução</Text><Text style={styles.performanceHint}>Ocorrências concluídas nesta sessão</Text></View><Text style={styles.performanceValue}>{ocorrencias.length ? Math.round((concluded / ocorrencias.length) * 100) : 0}%</Text></View>
+          <View style={styles.performanceHeader}><View><Text style={styles.performanceTitle}>Taxa de resolução</Text><Text style={styles.performanceHint}>Ocorrências concluídas neste dispositivo</Text></View><Text style={styles.performanceValue}>{ocorrencias.length ? Math.round((concluded / ocorrencias.length) * 100) : 0}%</Text></View>
           <View style={styles.track}><View style={[styles.progress, { width: `${ocorrencias.length ? (concluded / ocorrencias.length) * 100 : 0}%` }]} /></View>
         </View>
 
@@ -55,10 +58,12 @@ export const ProfileScreen = ({ onBack, ocorrencias, onFeedback }: ProfileScreen
           <View style={styles.menuButton}><View style={styles.menuIconRow}><MenuIcon name="bell-outline" /><View><Text style={styles.menuLabel}>Notificações</Text><Text style={styles.menuHint}>Riscos altos e equipes</Text></View></View><Switch value={notifications} onValueChange={toggleNotifications} trackColor={{ false: '#334155', true: '#27663C' }} thumbColor={notifications ? '#4ADE80' : '#94A3B8'} accessibilityLabel="Ativar notificações" /></View>
           <MenuButton icon="shield-check-outline" label="Segurança" hint="Sessão protegida" onPress={() => onFeedback('Sessão protegida', 'Último acesso realizado hoje neste dispositivo.', 'info')} />
           <MenuButton icon="help-circle-outline" label="Ajuda e suporte" hint="Central de atendimento" onPress={() => onFeedback('Ajuda e suporte', 'Canal demonstrativo: suporte@motiva.mock', 'info')} />
+          <MenuButton icon="database-refresh-outline" label="Restaurar dados de demonstração" hint="Apaga registros salvos neste aparelho" onPress={() => setConfirmReset(true)} />
           <MenuButton icon="logout" label="Sair" hint="Encerrar sessão demonstrativa" color="#F87171" onPress={() => onFeedback('Modo demonstração', 'Nenhuma sessão real foi encerrada.', 'info')} />
         </View>
-        <Text style={styles.version}>Motiva Verde · versão 1.0.0 · Sprint 3</Text>
+        <Text style={styles.version}>Motiva Verde · versão 1.0.0 · Sprint 4</Text>
       </ScrollView>
+      <ConfirmModal visible={confirmReset} title="Restaurar dados?" message="Os registros feitos neste aparelho serão apagados e as ocorrências de demonstração serão recarregadas." confirmLabel="Restaurar" icon="database-refresh-outline" onCancel={() => setConfirmReset(false)} onConfirm={() => { setConfirmReset(false); onResetData(); }} />
     </SafeAreaView>
   );
 };

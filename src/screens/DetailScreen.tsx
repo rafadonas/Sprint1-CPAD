@@ -7,28 +7,32 @@ import { formatDate, riskLabel, RISK_COLORS, STATUS_COLORS } from '../utils/occu
 import { ConfirmModal } from '../components/ConfirmModal';
 const ROAD_IMAGE = require('../../assets/estrada-com-mata.webp');
 
-interface DetailScreenProps { occurrence: Ocorrencia; onBack: () => void; onDispatch: (id: string) => void; }
-export const DetailScreen = ({ occurrence, onBack, onDispatch }: DetailScreenProps) => {
+interface DetailScreenProps { occurrence: Ocorrencia; onBack: () => void; onDispatch: (id: string) => void; onConclude: (id: string) => void; }
+export const DetailScreen = ({ occurrence, onBack, onDispatch, onConclude }: DetailScreenProps) => {
   const [showHistory, setShowHistory] = useState(false);
-  const [showDispatchConfirmation, setShowDispatchConfirmation] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const canDispatch = occurrence.status === 'Pendente';
-  const confirmDispatch = () => {
-    setShowDispatchConfirmation(false);
-    onDispatch(occurrence.id);
+  const canConclude = occurrence.status === 'Em análise';
+  const canAct = canDispatch || canConclude;
+  const hasRealPhoto = Boolean(occurrence.foto && occurrence.foto !== 'mock-photo');
+  const confirmAction = () => {
+    setShowConfirmation(false);
+    if (canDispatch) onDispatch(occurrence.id);
+    else onConclude(occurrence.id);
     setShowHistory(true);
   };
   return <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
     <View style={styles.header}><TouchableOpacity onPress={onBack} style={styles.back} accessibilityRole="button" accessibilityLabel="Voltar"><MaterialCommunityIcons name="chevron-left" size={28} color="#F8FAFC" /></TouchableOpacity><View><Text style={styles.eyebrow}>{occurrence.rodovia}</Text><Text style={styles.headerTitle}>{occurrence.local}</Text></View><View style={[styles.status, { backgroundColor: `${STATUS_COLORS[occurrence.status]}25` }]}><Text style={[styles.statusText, { color: STATUS_COLORS[occurrence.status] }]}>{occurrence.status}</Text></View></View>
     <ScrollView contentContainerStyle={styles.content}>
-      <View style={styles.imageWrap}><Image source={ROAD_IMAGE} style={styles.image} resizeMode="cover" /><View style={styles.imageScrim} /><View style={[styles.risk, { backgroundColor: RISK_COLORS[occurrence.risco] }]}><MaterialCommunityIcons name="alert" size={15} color="#fff" /><Text style={styles.riskText}>Risco {riskLabel(occurrence.risco)}</Text></View>{occurrence.foto ? <View style={styles.photoBadge}><MaterialCommunityIcons name="camera" size={14} color="#DCFCE7" /><Text style={styles.photoBadgeText}>Evidência anexada</Text></View> : null}</View>
+      <View style={styles.imageWrap}><Image source={hasRealPhoto ? { uri: occurrence.foto } : ROAD_IMAGE} style={styles.image} resizeMode="cover" accessibilityLabel={hasRealPhoto ? 'Foto registrada em campo' : 'Imagem ilustrativa do trecho'} /><View style={styles.imageScrim} /><View style={[styles.risk, { backgroundColor: RISK_COLORS[occurrence.risco] }]}><MaterialCommunityIcons name="alert" size={15} color="#fff" /><Text style={styles.riskText}>Risco {riskLabel(occurrence.risco)}</Text></View>{occurrence.foto ? <View style={styles.photoBadge}><MaterialCommunityIcons name="camera" size={14} color="#DCFCE7" /><Text style={styles.photoBadgeText}>Evidência anexada</Text></View> : null}</View>
       <View style={styles.priority}><MaterialCommunityIcons name="calendar-alert" size={23} color="#4ADE80" /><View><Text style={styles.priorityLabel}>INTERVENÇÃO RECOMENDADA</Text><Text style={styles.priorityValue}>{occurrence.previsaoIntervencao}</Text></View></View>
       <View style={styles.card}><Text style={styles.sectionTitle}>Dados da inspeção</Text><Info icon="ruler" label="Altura estimada" value={`${occurrence.alturaGrama} cm`} /><Info icon="calendar-clock" label="Registrado em" value={formatDate(occurrence.data)} /><Info icon="account-hard-hat" label="Inspetor" value={occurrence.inspetor} /><Info icon="crosshairs-gps" label="Coordenadas" value={`${occurrence.latitude}, ${occurrence.longitude}`} /></View>
       <View style={styles.card}><Text style={styles.sectionTitle}>Descrição</Text><Text style={styles.description}>{occurrence.descricao}</Text><View style={styles.tags}>{occurrence.tags.map((tag) => <View style={styles.tag} key={tag}><MaterialCommunityIcons name="leaf" size={12} color="#86EFAC" /><Text style={styles.tagText}>{tag}</Text></View>)}</View></View>
       <TouchableOpacity style={styles.historyToggle} onPress={() => setShowHistory((value) => !value)} accessibilityRole="button" accessibilityState={{ expanded: showHistory }}><View style={styles.historyLabel}><MaterialCommunityIcons name="timeline-clock-outline" size={21} color="#4ADE80" /><View><Text style={styles.sectionTitle}>Linha do tempo</Text><Text style={styles.historyCount}>{occurrence.historico.length} {occurrence.historico.length === 1 ? 'evento' : 'eventos'}</Text></View></View><MaterialCommunityIcons name={showHistory ? 'chevron-up' : 'chevron-down'} size={23} color="#94A3B8" /></TouchableOpacity>
       {showHistory ? <View style={styles.timeline}>{occurrence.historico.map((event, index) => <View style={styles.event} key={`${event.data}-${index}`}><View style={styles.dot} /><View style={styles.eventCopy}><Text style={styles.eventTitle}>{event.titulo}</Text><Text style={styles.eventDate}>{formatDate(event.data)}</Text><Text style={styles.eventDescription}>{event.descricao}</Text></View></View>)}</View> : null}
-      <TouchableOpacity disabled={!canDispatch} style={[styles.action, !canDispatch && styles.actionDisabled]} onPress={() => setShowDispatchConfirmation(true)} accessibilityRole="button" accessibilityState={{ disabled: !canDispatch }}><MaterialCommunityIcons name={canDispatch ? 'truck-delivery-outline' : 'check-circle-outline'} size={21} color={canDispatch ? '#07120A' : '#86EFAC'} /><Text style={[styles.actionText, !canDispatch && styles.actionTextDisabled]}>{canDispatch ? 'Despachar equipe' : occurrence.status === 'Concluído' ? 'Atendimento concluído' : 'Equipe já acionada'}</Text></TouchableOpacity>
+      <TouchableOpacity disabled={!canAct} style={[styles.action, !canAct && styles.actionDisabled]} onPress={() => setShowConfirmation(true)} accessibilityRole="button" accessibilityState={{ disabled: !canAct }}><MaterialCommunityIcons name={canDispatch ? 'truck-delivery-outline' : canConclude ? 'check-decagram-outline' : 'check-circle-outline'} size={21} color={canAct ? '#07120A' : '#86EFAC'} /><Text style={[styles.actionText, !canAct && styles.actionTextDisabled]}>{canDispatch ? 'Despachar equipe' : canConclude ? 'Concluir atendimento' : 'Atendimento concluído'}</Text></TouchableOpacity>
     </ScrollView>
-    <ConfirmModal visible={showDispatchConfirmation} title="Despachar equipe?" message={`Uma ordem de serviço será criada para ${occurrence.local}, ${occurrence.rodovia}.`} confirmLabel="Despachar" onCancel={() => setShowDispatchConfirmation(false)} onConfirm={confirmDispatch} />
+    <ConfirmModal visible={showConfirmation} title={canDispatch ? 'Despachar equipe?' : 'Concluir atendimento?'} message={canDispatch ? `Uma ordem de serviço será criada para ${occurrence.local}, ${occurrence.rodovia}.` : `Confirme que a roçagem em ${occurrence.local}, ${occurrence.rodovia}, foi executada e o trecho está liberado.`} confirmLabel={canDispatch ? 'Despachar' : 'Concluir'} icon={canDispatch ? 'truck-delivery-outline' : 'check-decagram-outline'} onCancel={() => setShowConfirmation(false)} onConfirm={confirmAction} />
   </SafeAreaView>;
 };
 const Info = ({ icon, label, value }: { icon: React.ComponentProps<typeof MaterialCommunityIcons>['name']; label: string; value: string }) => <View style={styles.info}><View style={styles.infoLabel}><MaterialCommunityIcons name={icon} size={17} color="#94A3B8" /><Text style={styles.infoLabelText}>{label}</Text></View><Text style={styles.infoValue}>{value}</Text></View>;

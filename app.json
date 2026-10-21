@@ -1,25 +1,49 @@
 {
   "expo": {
-    "name": "motiva-app",
+    "name": "Motiva Verde",
     "slug": "motiva-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "br.com.fiap.motivaverde"
     },
     "android": {
+      "package": "br.com.fiap.motivaverde",
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#08110C",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O Motiva Verde acessa suas fotos para anexar evidências às ocorrências de vegetação.",
+          "cameraPermission": "O Motiva Verde usa a câmera para fotografar o trecho inspecionado.",
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "O Motiva Verde usa sua localização para georreferenciar a ocorrência registrada."
+        }
+      ]
+    ]
   }
 }
