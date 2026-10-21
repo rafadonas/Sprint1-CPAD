@@ -8,7 +8,7 @@ Aplicativo multiplataforma para a gestão das áreas verdes das rodovias operada
 | --- | --- |
 | 📱 **APK Android (versão final)** | [**Baixar motiva-verde.apk**](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · [todas as versões](https://github.com/rafadonas/Sprint1-CPAD/releases) |
 | 🎬 **Vídeo final de pitch e demonstração (Sprint 4)** | _Link do YouTube (não listado) a ser incluído após a gravação_ |
-| 🎥 Vídeo da Sprint 3 (protótipo) | [Assistir no YouTube](https://youtu.be/QX9XWHr-NKw) |
+| 🎥 Vídeos anteriores | [Sprint 2](https://youtu.be/vOX8zfhRCqA) · [Sprint 3](https://youtu.be/QX9XWHr-NKw) |
 | 💼 Plano de negócio | [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md) |
 | ✅ Relatório de testes | [TESTES_MANUAIS.md](./TESTES_MANUAIS.md) |
 
@@ -66,12 +66,22 @@ adb install motiva-verde.apk
 
 ## Resumo das entregas por Sprint
 
-| Sprint | Foco | Principais entregas |
-| --- | --- | --- |
-| **Sprint 1** | Descoberta e proposta | Entendimento do desafio da Motiva, definição do problema da gestão de vegetação, proposta de solução e escolha da stack (React Native + Expo) |
-| **Sprint 2** | Protótipo de telas | Estrutura do projeto Expo, telas de Mapa, Relatar, Histórico, Detalhes e Perfil e navegação inicial com dados mockados |
-| **Sprint 3** | Protótipo funcional | Fluxos completos com mocks, validações, estados alternativos, despacho de equipe, mapa OpenStreetMap interativo, acessibilidade, relatório de testes e [vídeo de demonstração](https://youtu.be/QX9XWHr-NKw) |
-| **Sprint 4** | Versão final | Correção das pendências dos testes da Sprint 3: persistência, câmera e GPS reais, conclusão de atendimento e restauração de dados. Também entrou o **APK publicado**, o pipeline de build com teste em emulador, o [plano de negócio](./PLANO_DE_NEGOCIO.md) e o vídeo de pitch |
+| Sprint | Foco | Principais entregas | Evidência |
+| --- | --- | --- | --- |
+| **Sprint 1** | Ideação e escopo | Problema definido: falta de visão geográfica dos trechos críticos e dificuldade em despachar equipes de roçada. Público-alvo definido: operador de campo e gestor de operações. Escopo do MVP: cadastro de ocorrência com KM, foto, altura e GPS, mapa de ocorrências, classificação de risco por cores e tela de detalhes com despacho. Também foi criada a estrutura inicial do projeto Expo + TypeScript | README da Sprint 1 no histórico do repositório |
+| **Sprint 2** | MVP navegável | Mapa de riscos sobre fundo geográfico de São Paulo, formulário de registro, histórico atualizado após cada cadastro, detalhes com botão "Despachar equipe", perfil do inspetor e menu inferior entre as áreas, tudo com dados mockados e tema escuro | [Vídeo da Sprint 2](https://youtu.be/vOX8zfhRCqA) |
+| **Sprint 3** | Protótipo funcional | Validações de formulário, estados alternativos (zero resultados, lista vazia, ação já executada), mapa OpenStreetMap interativo, busca e filtros, linha do tempo, modal de confirmação, toasts, acessibilidade, áreas seguras, botão voltar do Android e relatório com 15 casos de teste | [Vídeo da Sprint 3](https://youtu.be/QX9XWHr-NKw) · [testes](./TESTES_MANUAIS.md) |
+| **Sprint 4** | Versão final | Pendências da Sprint 3 corrigidas: persistência local, câmera e GPS reais, conclusão do atendimento e restauração de dados. Também entraram o **APK publicado** no GitHub Releases, o pipeline de build com teste em emulador, o [plano de negócio](./PLANO_DE_NEGOCIO.md) e o vídeo de pitch | [APK](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · vídeo final |
+
+### Evolução ao longo das Sprints
+
+| Recurso | Sprint 1 | Sprint 2 | Sprint 3 | Sprint 4 |
+| --- | --- | --- | --- | --- |
+| Mapa | Escopo | Imagem estática com marcadores | OpenStreetMap interativo com filtros | Inclui os pontos registrados pelo GPS |
+| Registro | Escopo | Formulário simples | Validações e estados de erro | Câmera ou galeria e GPS reais |
+| Dados | — | Mock em memória | Mock em memória | Persistidos no aparelho |
+| Atendimento | Escopo | Botão de despacho | Despacho com confirmação e linha do tempo | Ciclo completo até a conclusão |
+| Distribuição | — | Expo Go | Expo Go no emulador | **APK instalável** |
 
 ### Pendências da Sprint 3 resolvidas
 
