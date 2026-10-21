@@ -12,6 +12,14 @@ Aplicativo multiplataforma para a gestão das áreas verdes das rodovias operada
 | 💼 Plano de negócio | [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md) |
 | ✅ Relatório de testes | [TESTES_MANUAIS.md](./TESTES_MANUAIS.md) |
 
+## Capturas do APK
+
+<p>
+  <img src="./docs/screenshots/01-mapa.png" width="240" alt="Mapa de vegetação" />
+  <img src="./docs/screenshots/02-formulario.png" width="240" alt="Registro com GPS" />
+  <img src="./docs/screenshots/06-perfil.png" width="240" alt="Perfil do inspetor" />
+</p>
+
 ## Proposta de solução
 
 Hoje a roçagem na faixa de domínio costuma seguir um cronograma fixo, e os registros de campo ficam espalhados entre planilhas, fotos e mensagens. O **Motiva Verde troca a roçagem por calendário pela roçagem por risco**:
