@@ -55,6 +55,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           name: motiva-verde-apk
@@ -72,15 +74,7 @@ jobs:
           arch: x86_64
           target: google_apis
           disable-animations: true
-          script: |
-            adb install -r motiva-verde.apk
-            adb shell pm grant br.com.fiap.motivaverde android.permission.ACCESS_FINE_LOCATION
-            adb shell monkey -p br.com.fiap.motivaverde -c android.intent.category.LAUNCHER 1
-            sleep 25
-            mkdir -p screenshots
-            adb exec-out screencap -p > screenshots/01-mapa.png
-            adb shell pidof br.com.fiap.motivaverde
-            adb logcat -d -s ReactNativeJS:V AndroidRuntime:E > screenshots/logcat.txt || true
+          script: bash scripts/android-smoke-test.sh motiva-verde.apk
 
       - uses: actions/upload-artifact@v4
         if: always()

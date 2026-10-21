@@ -1,111 +1,132 @@
 # Motiva Verde — Gestão Inteligente de Vegetação
 
-Aplicativo multiplataforma desenvolvido para apoiar a gestão das áreas verdes nas rodovias operadas pela Motiva. A solução reúne ocorrências de campo, classificação de risco, histórico de intervenções e recomendação do prazo de atendimento em uma experiência única para equipes de inspeção e operação.
+Aplicativo multiplataforma para a gestão das áreas verdes das rodovias operadas pela Motiva. A solução reúne em uma única experiência, voltada às equipes de inspeção e operação, o registro de ocorrências em campo com foto e GPS, a classificação de risco, o mapa de prioridades, o despacho de equipes e o histórico auditável de cada intervenção.
 
-## 🎥 Demonstração da Sprint 3
+## Downloads e links
 
-### [▶ Assistir ao vídeo completo no YouTube](https://youtu.be/QX9XWHr-NKw)
+| Entrega | Link |
+| --- | --- |
+| 📱 **APK Android (versão final)** | [**Baixar motiva-verde.apk**](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · [todas as versões](https://github.com/rafadonas/Sprint1-CPAD/releases) |
+| 🎬 **Vídeo final de pitch e demonstração (Sprint 4)** | _Link do YouTube (não listado) a ser incluído após a gravação_ |
+| 🎥 Vídeo da Sprint 3 (protótipo) | [Assistir no YouTube](https://youtu.be/QX9XWHr-NKw) |
+| 💼 Plano de negócio | [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md) |
+| ✅ Relatório de testes | [TESTES_MANUAIS.md](./TESTES_MANUAIS.md) |
 
-[![Demonstração do Motiva Verde](https://img.youtube.com/vi/QX9XWHr-NKw/maxresdefault.jpg)](https://youtu.be/QX9XWHr-NKw)
+## Proposta de solução
 
-## Status da Sprint 3
+Hoje a roçagem na faixa de domínio costuma seguir um cronograma fixo, e os registros de campo ficam espalhados entre planilhas, fotos e mensagens. O **Motiva Verde troca a roçagem por calendário pela roçagem por risco**:
 
-O protótipo funcional está navegável por meio do Expo e foi validado em um emulador Android com Expo Go. A aplicação também possui suporte a iOS e Web pela mesma base de código. Todos os fluxos previstos para esta sprint utilizam dados mockados locais e possuem tratamento para sucesso, erro de formulário, busca sem resultados e listas vazias.
+1. **O inspetor registra a ocorrência** com foto da câmera, coordenadas do GPS, rodovia, KM, altura estimada e nível de risco.
+2. **A central visualiza o mapa** de pontos georreferenciados, com filtros por rodovia e risco.
+3. **O app recomenda o prazo de intervenção** de acordo com o risco: imediata, até 24 h, até 72 h ou monitoramento.
+4. **A equipe é despachada e o atendimento é concluído** no app, e cada etapa entra em uma linha do tempo auditável.
+5. **A gestão acompanha os indicadores** de pendências, ocorrências críticas abertas e taxa de resolução.
 
-| Funcionalidade | Status | Cobertura atual |
+O impacto esperado é menos roçagem desnecessária, atendimento mais rápido dos trechos críticos, mais segurança viária e evidências para responder ao poder concedente. Os detalhes estão no [plano de negócio](./PLANO_DE_NEGOCIO.md).
+
+## Instalação do APK (Android)
+
+1. No celular Android, abra o link [**motiva-verde.apk**](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) e faça o download.
+2. Abra o arquivo baixado. Se o Android pedir, autorize **Instalar apps desconhecidos** para o navegador ou o gerenciador de arquivos (**Configurações > Apps > Acesso especial > Instalar apps desconhecidos**).
+3. Toque em **Instalar**. Se o Play Protect avisar que o app é desconhecido, toque em **Mais detalhes > Instalar mesmo assim**, porque o APK é distribuído fora da Play Store.
+4. Abra o **Motiva Verde**. Ao registrar a primeira ocorrência, permita o acesso à **localização** e à **câmera**.
+
+Requisitos: Android 7.0 (API 24) ou superior e conexão com a internet para carregar os blocos do mapa.
+
+Instalação por cabo (opcional), com a depuração USB ativada:
+
+```bash
+adb install motiva-verde.apk
+```
+
+## Funcionalidades da versão final
+
+| Funcionalidade | Descrição |
+| --- | --- |
+| Mapa operacional | OpenStreetMap interativo com zoom, arraste, marcadores por risco, busca, filtros por rodovia e risco e legenda |
+| Registro de ocorrência | Foto real pela **câmera ou galeria**, **GPS do aparelho** com precisão exibida, rodovia, KM, altura, risco, descrição e validações |
+| Persistência local | Ocorrências e alterações de status **ficam salvas no aparelho** e continuam lá depois que o app é fechado |
+| Histórico | Busca, filtros por status, indicadores de pendências e de ocorrências críticas e estado vazio |
+| Detalhes e prioridade | Foto da evidência, dados da inspeção, coordenadas, tags, prazo recomendado e linha do tempo |
+| Ciclo de atendimento | **Pendente → Em análise (despacho) → Concluído**, com confirmação em cada etapa |
+| Perfil | Estatísticas, taxa de resolução, preferências e **restauração dos dados de demonstração** |
+| Robustez | Fallback de localização quando a permissão é negada, erros de câmera tratados, botão voltar do Android e áreas seguras |
+
+## Stack utilizada
+
+- **Expo SDK 56**, React Native 0.85, React 19 e TypeScript
+- expo-image-picker (câmera e galeria) e expo-location (GPS)
+- AsyncStorage (persistência local)
+- OpenStreetMap, Leaflet e React Native WebView (mapa)
+- React Native Web (mesma base de código para a Web)
+- **GitHub Actions** para o build do APK (Expo Prebuild + Gradle), teste automatizado de instalação em emulador Android e publicação no GitHub Releases
+- `eas.json` configurado para quem preferir gerar o APK pelo Expo EAS Build
+
+> **Sobre Flutter:** o grupo não migrou para Flutter. O projeto foi desenvolvido inteiramente em React Native com Expo nas quatro Sprints, e essa base única atende Android, iOS e Web.
+
+## Resumo das entregas por Sprint
+
+| Sprint | Foco | Principais entregas |
 | --- | --- | --- |
-| Mapa operacional | Concluída | OpenStreetMap interativo, zoom, arraste, pontos georreferenciados, busca, filtros, legenda e acesso aos detalhes |
-| Registro de ocorrência | Concluída | Foto simulada, rodovia, KM, altura, risco, descrição, localização e validações |
-| Histórico | Concluída | Busca, filtros por status, estado vazio e atualização após novo registro |
-| Detalhes e prioridade | Concluída | Dados da inspeção, recomendação, tags e linha do tempo expansível |
-| Despacho de equipe | Concluída | Confirmação no mobile, alteração para “Em análise” e registro no histórico |
-| Perfil | Concluída | Estatísticas derivadas dos mocks e ações com feedback |
-| Estados alternativos | Concluída | Erros de validação, zero resultados, lista vazia e ação já executada |
-| Experiência e acessibilidade | Concluída | Toasts, modal multiplataforma, áreas seguras do sistema, alvos acessíveis, labels e navegação contextual |
-| API e persistência | Pendente para Sprint 4 | Estado mantido apenas durante a sessão atual |
-| Câmera e GPS nativos | Pendente para Sprint 4 | Captura de imagem e localização do aparelho ainda são simuladas |
+| **Sprint 1** | Descoberta e proposta | Entendimento do desafio da Motiva, definição do problema da gestão de vegetação, proposta de solução e escolha da stack (React Native + Expo) |
+| **Sprint 2** | Protótipo de telas | Estrutura do projeto Expo, telas de Mapa, Relatar, Histórico, Detalhes e Perfil e navegação inicial com dados mockados |
+| **Sprint 3** | Protótipo funcional | Fluxos completos com mocks, validações, estados alternativos, despacho de equipe, mapa OpenStreetMap interativo, acessibilidade, relatório de testes e [vídeo de demonstração](https://youtu.be/QX9XWHr-NKw) |
+| **Sprint 4** | Versão final | Correção das pendências dos testes da Sprint 3: persistência, câmera e GPS reais, conclusão de atendimento e restauração de dados. Também entrou o **APK publicado**, o pipeline de build com teste em emulador, o [plano de negócio](./PLANO_DE_NEGOCIO.md) e o vídeo de pitch |
 
-## Fluxos implementados
+### Pendências da Sprint 3 resolvidas
 
-1. Consultar os pontos de vegetação no mapa e alternar filtros.
-2. Buscar uma ocorrência por KM, rodovia ou descrição.
-3. Registrar uma ocorrência com validação completa dos campos.
-4. Consultar e filtrar o histórico por etapa de atendimento.
-5. Abrir os detalhes, consultar a linha do tempo e despachar uma equipe.
-6. Consultar o perfil e as estatísticas do inspetor.
+| Ponto do relatório da Sprint 3 | Solução na Sprint 4 |
+| --- | --- |
+| Dados voltavam ao estado inicial quando o app era reiniciado | Persistência com AsyncStorage |
+| Foto simulada | Câmera e galeria reais com pré-visualização e remoção |
+| Geolocalização simulada | GPS do aparelho, com fallback para a referência da rodovia |
+| CT-13 (botão voltar do Android) estava "Repetir no emulador" | Revalidado no APK instalado |
+| Ciclo de atendimento terminava no despacho | Nova ação **Concluir atendimento** |
+| Validação em ambiente nativo | APK instalado e iniciado automaticamente em emulador Android no CI |
 
-### Refinamentos de produto
+## Como executar em desenvolvimento
 
-- Navegação contextual: detalhes e formulário retornam à tela que originou o fluxo.
-- Feedback global não bloqueante para cadastro, despacho e preferências.
-- Confirmação de despacho própria e consistente em Android, iOS e Web.
-- Filtros adaptáveis para telas estreitas e cartões resistentes a textos maiores.
-- Perfil com indicadores operacionais, taxa de resolução e preferências interativas.
-- Nomes de risco, estados selecionados e controles revisados para leitores de tela.
-- Respeito às áreas seguras do Android e iOS, evitando sobreposição com relógio, bateria e barra de gestos.
-- Mapa geográfico interativo com OpenStreetMap, movimentação, zoom e marcadores ligados às coordenadas das ocorrências.
-
-## Dados mockados
-
-Os mocks cobrem três rodovias (`BR-101`, `SP-270` e `SP-280`), os riscos baixo, médio e alto e os status Pendente, Em análise e Concluído. Cada ocorrência contém coordenadas, altura estimada, responsável, tags, prazo recomendado e eventos históricos. Novos registros e mudanças de status atualizam toda a interface durante a sessão.
-
-## Tecnologias
-
-- Expo 56 e React Native 0.85
-- React 19 e TypeScript
-- React Native Web
-- OpenStreetMap, Leaflet e React Native WebView
-- Material Community Icons
-- Estado local com React Hooks
-
-Não houve migração para Flutter; o projeto permanece em React Native com Expo, preservando a stack adotada nas sprints anteriores.
-
-## Como executar
-
-Pré-requisito: Node.js 20 ou superior.
+Pré-requisito: Node.js 20.19 ou superior.
 
 ```bash
 npm install
 npm start
 ```
 
-No terminal do Expo, pressione `a` para Android, `i` para iOS ou `w` para Web. Também é possível escanear o QR Code usando o Expo Go.
-
-### Executar no emulador Android
-
-1. Abra o Android Studio e acesse **More Actions > Virtual Device Manager**.
-2. Inicie um dispositivo virtual Android.
-3. Na raiz do projeto, execute:
-
-```bash
-npm install
-npx expo start --android
-```
-
-O Expo abrirá o aplicativo no emulador. Se o servidor já estiver em execução, pressione `a` no terminal. Para atualizar o bundle após uma alteração, pressione `r`.
-
-> O Expo Go é o aplicativo que carrega o projeto; o dispositivo virtual criado pelo Android Studio é o emulador utilizado na demonstração.
+No terminal do Expo, pressione `a` para Android, `i` para iOS ou `w` para Web, ou escaneie o QR Code com o Expo Go.
 
 ### Validação técnica
 
 ```bash
 npm run typecheck
-npx expo install --check
-npx expo export --platform web
+npx expo-doctor
+npm run build:web
 ```
 
-As verificações de tipos e dependências foram executadas com sucesso em 21/09/2026. O aplicativo também foi iniciado e inspecionado no emulador Android. O relatório detalhado está em [TESTES_MANUAIS.md](./TESTES_MANUAIS.md).
+### Gerar o APK
 
-## Pendências e plano para a Sprint 4
+**GitHub Actions (usado na entrega):** ao publicar uma tag `v*`, o workflow [`android-apk.yml`](./.github/workflows/android-apk.yml) gera o APK, instala e abre o app em um emulador Android e anexa o `motiva-verde.apk` a um GitHub Release.
 
-- Substituir os mocks por API autenticada e banco de dados persistente.
-- Integrar GPS e captura real de imagens e avaliar suporte offline ao mapa.
-- Incorporar dados de sensoriamento remoto e classificação por IA.
-- Sincronizar registros feitos sem conexão quando a rede retornar.
-- Adicionar autenticação, permissões por perfil e notificações push.
-- Automatizar testes de componentes e fluxos críticos.
-- Realizar testes de acessibilidade e desempenho em aparelhos físicos.
-- Migrar para Expo SDK 57 após a avaliação: o `expo-doctor` aponta uma regressão de memória do Hermes incluído no SDK 56, mantido nesta entrega por exigência do projeto.
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+**Expo EAS Build (alternativa):**
+
+```bash
+npx eas-cli login
+npx eas-cli build --platform android --profile preview
+```
+
+> O APK não é versionado no repositório. Ele fica disponível apenas pelo GitHub Releases.
+
+## Limitações conhecidas e próximos passos
+
+- Os dados ficam no aparelho. O roadmap prevê backend com autenticação e sincronização entre dispositivos.
+- O mapa precisa de internet. O cache offline de blocos está planejado.
+- O `expo-doctor` aponta uma regressão de memória do Hermes no SDK 56. A migração para o SDK 57 está planejada.
+- Estão previstas notificações push, perfis de acesso e classificação da vegetação por visão computacional.
 
 ## Integrantes
 
