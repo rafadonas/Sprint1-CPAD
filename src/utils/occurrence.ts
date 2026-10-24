@@ -12,14 +12,14 @@ export const STATUS_COLORS: Record<StatusOcorrencia, string> = {
   Concluído: '#22C55E',
 };
 
-export const capitalize = (value: string) =>
-  value.charAt(0).toUpperCase() + value.slice(1);
+export const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
 
-export const riskLabel = (risk: Risco) => ({
-  baixo: 'Baixo',
-  medio: 'Médio',
-  alto: 'Alto',
-}[risk]);
+export const riskLabel = (risk: Risco) =>
+  ({
+    baixo: 'Baixo',
+    medio: 'Médio',
+    alto: 'Alto',
+  })[risk];
 
 export const formatDate = (date: string) =>
   new Intl.DateTimeFormat('pt-BR', {

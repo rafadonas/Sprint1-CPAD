@@ -10,7 +10,11 @@ interface BottomNavProps {
   onNavigate: (screen: ScreenName) => void;
 }
 
-const ITEMS: Array<{ id: ScreenName; label: string; icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'] }> = [
+const ITEMS: Array<{
+  id: ScreenName;
+  label: string;
+  icon: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+}> = [
   { id: 'MAP', label: 'Mapa', icon: 'map-outline' },
   { id: 'REPORT', label: 'Relatar', icon: 'plus-circle-outline' },
   { id: 'HISTORY', label: 'Histórico', icon: 'history' },
@@ -74,7 +78,14 @@ const styles = StyleSheet.create({
   itemActive: {
     backgroundColor: '#10251A',
   },
-  activeIndicator: { position: 'absolute', top: 0, width: 22, height: 2, borderRadius: 1, backgroundColor: '#4ADE80' },
+  activeIndicator: {
+    position: 'absolute',
+    top: 0,
+    width: 22,
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: '#4ADE80',
+  },
   label: {
     fontSize: 10,
     marginTop: 4,

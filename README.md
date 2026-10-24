@@ -4,13 +4,13 @@ Aplicativo multiplataforma para a gestão das áreas verdes das rodovias operada
 
 ## Downloads e links
 
-| Entrega | Link |
-| --- | --- |
-| 📱 **APK Android (versão final)** | [**Baixar motiva-verde.apk**](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · [todas as versões](https://github.com/rafadonas/Sprint1-CPAD/releases) |
-| 🎬 **Vídeo final de pitch e demonstração (Sprint 4)** | _Link do YouTube (não listado) a ser incluído após a gravação_ |
-| 🎥 Vídeos anteriores | [Sprint 2](https://youtu.be/vOX8zfhRCqA) · [Sprint 3](https://youtu.be/QX9XWHr-NKw) |
-| 💼 Plano de negócio | [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md) |
-| ✅ Relatório de testes | [TESTES_MANUAIS.md](./TESTES_MANUAIS.md) |
+| Entrega                                               | Link                                                                                                                                                                                        |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 📱 **APK Android (versão final)**                     | [**Baixar motiva-verde.apk**](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · [todas as versões](https://github.com/rafadonas/Sprint1-CPAD/releases) |
+| 🎬 **Vídeo final de pitch e demonstração (Sprint 4)** | _Link do YouTube (não listado) a ser incluído após a gravação_                                                                                                                              |
+| 🎥 Vídeos anteriores                                  | [Sprint 2](https://youtu.be/vOX8zfhRCqA) · [Sprint 3](https://youtu.be/QX9XWHr-NKw)                                                                                                         |
+| 💼 Plano de negócio                                   | [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md)                                                                                                                                                |
+| ✅ Relatório de testes                                | [TESTES_MANUAIS.md](./TESTES_MANUAIS.md)                                                                                                                                                    |
 
 ## Capturas do APK
 
@@ -36,16 +36,16 @@ O impacto esperado é menos roçagem desnecessária, atendimento mais rápido do
 
 O documento completo está em [PLANO_DE_NEGOCIO.md](./PLANO_DE_NEGOCIO.md). Os valores são estimativas da equipe e precisam ser validados em um piloto.
 
-| Tópico | Resumo |
-| --- | --- |
-| **Proposta de valor** | Trocar a roçagem por calendário pela roçagem por risco, com registro em campo (foto, GPS e KM), mapa de prioridades, despacho e evidência auditável para o poder concedente |
-| **Público-alvo** | Diretorias de engenharia e conservação das concessionárias da Motiva. Mercado secundário: outras concessionárias e terceirizadas de conservação |
-| **Personas** | Carlos, inspetor de campo · Ana, coordenadora do CCO · Roberto, gerente de conservação |
-| **Modelo de receita** | SaaS B2B por km monitorado: R$ 40 a R$ 65/km/mês. Piloto de 90 dias por R$ 25 mil, taxa de implantação e serviço gerenciado opcional |
-| **Custos operacionais** | ≈ R$ 60,5 mil/mês (equipe, nuvem, ferramentas e suporte). Ponto de equilíbrio em ≈ 1.500 km monitorados |
+| Tópico                    | Resumo                                                                                                                                                                            |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Proposta de valor**     | Trocar a roçagem por calendário pela roçagem por risco, com registro em campo (foto, GPS e KM), mapa de prioridades, despacho e evidência auditável para o poder concedente       |
+| **Público-alvo**          | Diretorias de engenharia e conservação das concessionárias da Motiva. Mercado secundário: outras concessionárias e terceirizadas de conservação                                   |
+| **Personas**              | Carlos, inspetor de campo · Ana, coordenadora do CCO · Roberto, gerente de conservação                                                                                            |
+| **Modelo de receita**     | SaaS B2B por km monitorado: R$ 40 a R$ 65/km/mês. Piloto de 90 dias por R$ 25 mil, taxa de implantação e serviço gerenciado opcional                                              |
+| **Custos operacionais**   | ≈ R$ 60,5 mil/mês (equipe, nuvem, ferramentas e suporte). Ponto de equilíbrio em ≈ 1.500 km monitorados                                                                           |
 | **Impacto para a Motiva** | Redução estimada de 15% a 25% das roçagens desnecessárias, atendimento em até 24 h para risco alto, menos exposição a notificações contratuais e ganhos de segurança viária e ESG |
-| **Diferenciais** | Foco em vegetação, uso prático na viatura, ciclo completo da constatação à conclusão e uma única base para Android, iOS e Web |
-| **Principais riscos** | Adesão dos inspetores, integração com sistemas legados, falta de sinal em trechos rurais, LGPD e ciclo de venda longo. Cada um tem mitigação definida no documento |
+| **Diferenciais**          | Foco em vegetação, uso prático na viatura, ciclo completo da constatação à conclusão e uma única base para Android, iOS e Web                                                     |
+| **Principais riscos**     | Adesão dos inspetores, integração com sistemas legados, falta de sinal em trechos rurais, LGPD e ciclo de venda longo. Cada um tem mitigação definida no documento                |
 
 ## Instalação do APK (Android)
 
@@ -64,16 +64,16 @@ adb install motiva-verde.apk
 
 ## Funcionalidades da versão final
 
-| Funcionalidade | Descrição |
-| --- | --- |
-| Mapa operacional | OpenStreetMap interativo com zoom, arraste, marcadores por risco, busca, filtros por rodovia e risco e legenda |
+| Funcionalidade         | Descrição                                                                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Mapa operacional       | OpenStreetMap interativo com zoom, arraste, marcadores por risco, busca, filtros por rodovia e risco e legenda                     |
 | Registro de ocorrência | Foto real pela **câmera ou galeria**, **GPS do aparelho** com precisão exibida, rodovia, KM, altura, risco, descrição e validações |
-| Persistência local | Ocorrências e alterações de status **ficam salvas no aparelho** e continuam lá depois que o app é fechado |
-| Histórico | Busca, filtros por status, indicadores de pendências e de ocorrências críticas e estado vazio |
-| Detalhes e prioridade | Foto da evidência, dados da inspeção, coordenadas, tags, prazo recomendado e linha do tempo |
-| Ciclo de atendimento | **Pendente → Em análise (despacho) → Concluído**, com confirmação em cada etapa |
-| Perfil | Estatísticas, taxa de resolução, preferências e **restauração dos dados de demonstração** |
-| Robustez | Fallback de localização quando a permissão é negada, erros de câmera tratados, botão voltar do Android e áreas seguras |
+| Persistência local     | Ocorrências e alterações de status **ficam salvas no aparelho** e continuam lá depois que o app é fechado                          |
+| Histórico              | Busca, filtros por status, indicadores de pendências e de ocorrências críticas e estado vazio                                      |
+| Detalhes e prioridade  | Foto da evidência, dados da inspeção, coordenadas, tags, prazo recomendado e linha do tempo                                        |
+| Ciclo de atendimento   | **Pendente → Em análise (despacho) → Concluído**, com confirmação em cada etapa                                                    |
+| Perfil                 | Estatísticas, taxa de resolução, preferências e **restauração dos dados de demonstração**                                          |
+| Robustez               | Fallback de localização quando a permissão é negada, erros de câmera tratados, botão voltar do Android e áreas seguras             |
 
 ## Stack utilizada
 
@@ -89,33 +89,40 @@ adb install motiva-verde.apk
 
 ## Resumo das entregas por Sprint
 
-| Sprint | Foco | Principais entregas | Evidência |
-| --- | --- | --- | --- |
-| **Sprint 1** | Ideação e escopo | Problema definido: falta de visão geográfica dos trechos críticos e dificuldade em despachar equipes de roçada. Público-alvo definido: operador de campo e gestor de operações. Escopo do MVP: cadastro de ocorrência com KM, foto, altura e GPS, mapa de ocorrências, classificação de risco por cores e tela de detalhes com despacho. Também foi criada a estrutura inicial do projeto Expo + TypeScript | README da Sprint 1 no histórico do repositório |
-| **Sprint 2** | MVP navegável | Mapa de riscos sobre fundo geográfico de São Paulo, formulário de registro, histórico atualizado após cada cadastro, detalhes com botão "Despachar equipe", perfil do inspetor e menu inferior entre as áreas, tudo com dados mockados e tema escuro | [Vídeo da Sprint 2](https://youtu.be/vOX8zfhRCqA) |
-| **Sprint 3** | Protótipo funcional | Validações de formulário, estados alternativos (zero resultados, lista vazia, ação já executada), mapa OpenStreetMap interativo, busca e filtros, linha do tempo, modal de confirmação, toasts, acessibilidade, áreas seguras, botão voltar do Android e relatório com 15 casos de teste | [Vídeo da Sprint 3](https://youtu.be/QX9XWHr-NKw) · [testes](./TESTES_MANUAIS.md) |
-| **Sprint 4** | Versão final | Pendências da Sprint 3 corrigidas: persistência local, câmera e GPS reais, conclusão do atendimento e restauração de dados. Também entraram o **APK publicado** no GitHub Releases, o pipeline de build com teste em emulador, o [plano de negócio](./PLANO_DE_NEGOCIO.md) e o vídeo de pitch | [APK](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · vídeo final |
+| Sprint       | Foco                | Principais entregas                                                                                                                                                                                                                                                                                                                                                                                         | Evidência                                                                                                |
+| ------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Sprint 1** | Ideação e escopo    | Problema definido: falta de visão geográfica dos trechos críticos e dificuldade em despachar equipes de roçada. Público-alvo definido: operador de campo e gestor de operações. Escopo do MVP: cadastro de ocorrência com KM, foto, altura e GPS, mapa de ocorrências, classificação de risco por cores e tela de detalhes com despacho. Também foi criada a estrutura inicial do projeto Expo + TypeScript | README da Sprint 1 no histórico do repositório                                                           |
+| **Sprint 2** | MVP navegável       | Mapa de riscos sobre fundo geográfico de São Paulo, formulário de registro, histórico atualizado após cada cadastro, detalhes com botão "Despachar equipe", perfil do inspetor e menu inferior entre as áreas, tudo com dados mockados e tema escuro                                                                                                                                                        | [Vídeo da Sprint 2](https://youtu.be/vOX8zfhRCqA)                                                        |
+| **Sprint 3** | Protótipo funcional | Validações de formulário, estados alternativos (zero resultados, lista vazia, ação já executada), mapa OpenStreetMap interativo, busca e filtros, linha do tempo, modal de confirmação, toasts, acessibilidade, áreas seguras, botão voltar do Android e relatório com 15 casos de teste                                                                                                                    | [Vídeo da Sprint 3](https://youtu.be/QX9XWHr-NKw) · [testes](./TESTES_MANUAIS.md)                        |
+| **Sprint 4** | Versão final        | Pendências da Sprint 3 corrigidas: persistência local, câmera e GPS reais, conclusão do atendimento e restauração de dados. Também entraram o **APK publicado** no GitHub Releases, o pipeline de build com teste em emulador, o [plano de negócio](./PLANO_DE_NEGOCIO.md) e o vídeo de pitch                                                                                                               | [APK](https://github.com/rafadonas/Sprint1-CPAD/releases/latest/download/motiva-verde.apk) · vídeo final |
 
 ### Evolução ao longo das Sprints
 
-| Recurso | Sprint 1 | Sprint 2 | Sprint 3 | Sprint 4 |
-| --- | --- | --- | --- | --- |
-| Mapa | Escopo | Imagem estática com marcadores | OpenStreetMap interativo com filtros | Inclui os pontos registrados pelo GPS |
-| Registro | Escopo | Formulário simples | Validações e estados de erro | Câmera ou galeria e GPS reais |
-| Dados | — | Mock em memória | Mock em memória | Persistidos no aparelho |
-| Atendimento | Escopo | Botão de despacho | Despacho com confirmação e linha do tempo | Ciclo completo até a conclusão |
-| Distribuição | — | Expo Go | Expo Go no emulador | **APK instalável** |
+| Recurso      | Sprint 1 | Sprint 2                       | Sprint 3                                  | Sprint 4                                                                   |
+| ------------ | -------- | ------------------------------ | ----------------------------------------- | -------------------------------------------------------------------------- |
+| Mapa         | Escopo   | Imagem estática com marcadores | OpenStreetMap interativo com filtros      | Inclui os pontos registrados pelo GPS                                      |
+| Registro     | Escopo   | Formulário simples             | Validações e estados de erro              | Câmera ou galeria e GPS reais                                              |
+| Dados        | —        | Mock em memória                | Mock em memória                           | 15 registros georreferenciados nas rodovias reais, persistidos no aparelho |
+| Atendimento  | Escopo   | Botão de despacho              | Despacho com confirmação e linha do tempo | Ciclo completo até a conclusão                                             |
+| Distribuição | —        | Expo Go                        | Expo Go no emulador                       | **APK instalável**                                                         |
+
+### Feedback da Sprint 3 atendido (v1.1.0)
+
+- **Código legível:** Prettier aplicado em todo o projeto e verificado no `npm run validate`.
+- **Telas grandes divididas:** Detail e Report foram quebradas em componentes (`src/components/detail`, `src/components/form`) e hooks (`useDeviceLocation`, `usePhotoPicker`). O Perfil também foi dividido.
+- **Base de dados realista:** 15 ocorrências com **coordenadas reais** dos marcos quilométricos do OpenStreetMap: BR-101 (Ubatuba), SP-270 (Cotia a Sorocaba) e SP-280 (Barueri a Boituva).
+- **CT-13 fechado** no APK e contradição do relatório sobre o mapa corrigida.
 
 ### Pendências da Sprint 3 resolvidas
 
-| Ponto do relatório da Sprint 3 | Solução na Sprint 4 |
-| --- | --- |
-| Dados voltavam ao estado inicial quando o app era reiniciado | Persistência com AsyncStorage |
-| Foto simulada | Câmera e galeria reais com pré-visualização e remoção |
-| Geolocalização simulada | GPS do aparelho, com fallback para a referência da rodovia |
-| CT-13 (botão voltar do Android) estava "Repetir no emulador" | Revalidado no APK instalado |
-| Ciclo de atendimento terminava no despacho | Nova ação **Concluir atendimento** |
-| Validação em ambiente nativo | APK instalado e iniciado automaticamente em emulador Android no CI |
+| Ponto do relatório da Sprint 3                               | Solução na Sprint 4                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------------ |
+| Dados voltavam ao estado inicial quando o app era reiniciado | Persistência com AsyncStorage                                      |
+| Foto simulada                                                | Câmera e galeria reais com pré-visualização e remoção              |
+| Geolocalização simulada                                      | GPS do aparelho, com fallback para a referência da rodovia         |
+| CT-13 (botão voltar do Android) estava "Repetir no emulador" | Revalidado no APK instalado                                        |
+| Ciclo de atendimento terminava no despacho                   | Nova ação **Concluir atendimento**                                 |
+| Validação em ambiente nativo                                 | APK instalado e iniciado automaticamente em emulador Android no CI |
 
 ## Como executar em desenvolvimento
 

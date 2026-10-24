@@ -1,43 +1,75 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ocorrencia } from '../types';
-import { formatDate, riskLabel, RISK_COLORS, STATUS_COLORS } from '../utils/occurrence';
 import { ConfirmModal } from '../components/ConfirmModal';
-const ROAD_IMAGE = require('../../assets/estrada-com-mata.webp');
+import { DetailHeader } from '../components/detail/DetailHeader';
+import { EvidenceHero } from '../components/detail/EvidenceHero';
+import { InspectionDetails } from '../components/detail/InspectionDetails';
+import { Timeline } from '../components/detail/Timeline';
+import { ServiceAction } from '../components/detail/ServiceAction';
 
-interface DetailScreenProps { occurrence: Ocorrencia; onBack: () => void; onDispatch: (id: string) => void; onConclude: (id: string) => void; }
+interface DetailScreenProps {
+  occurrence: Ocorrencia;
+  onBack: () => void;
+  onDispatch: (id: string) => void;
+  onConclude: (id: string) => void;
+}
+
 export const DetailScreen = ({ occurrence, onBack, onDispatch, onConclude }: DetailScreenProps) => {
   const [showHistory, setShowHistory] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const canDispatch = occurrence.status === 'Pendente';
-  const canConclude = occurrence.status === 'Em análise';
-  const canAct = canDispatch || canConclude;
-  const hasRealPhoto = Boolean(occurrence.foto && occurrence.foto !== 'mock-photo');
+  const isDispatch = occurrence.status === 'Pendente';
+  const place = `${occurrence.local}, ${occurrence.rodovia}`;
+
   const confirmAction = () => {
     setShowConfirmation(false);
-    if (canDispatch) onDispatch(occurrence.id);
-    else onConclude(occurrence.id);
+    if (isDispatch) {
+      onDispatch(occurrence.id);
+    } else {
+      onConclude(occurrence.id);
+    }
     setShowHistory(true);
   };
-  return <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
-    <View style={styles.header}><TouchableOpacity onPress={onBack} style={styles.back} accessibilityRole="button" accessibilityLabel="Voltar"><MaterialCommunityIcons name="chevron-left" size={28} color="#F8FAFC" /></TouchableOpacity><View><Text style={styles.eyebrow}>{occurrence.rodovia}</Text><Text style={styles.headerTitle}>{occurrence.local}</Text></View><View style={[styles.status, { backgroundColor: `${STATUS_COLORS[occurrence.status]}25` }]}><Text style={[styles.statusText, { color: STATUS_COLORS[occurrence.status] }]}>{occurrence.status}</Text></View></View>
-    <ScrollView contentContainerStyle={styles.content}>
-      <View style={styles.imageWrap}><Image source={hasRealPhoto ? { uri: occurrence.foto } : ROAD_IMAGE} style={styles.image} resizeMode="cover" accessibilityLabel={hasRealPhoto ? 'Foto registrada em campo' : 'Imagem ilustrativa do trecho'} /><View style={styles.imageScrim} /><View style={[styles.risk, { backgroundColor: RISK_COLORS[occurrence.risco] }]}><MaterialCommunityIcons name="alert" size={15} color="#fff" /><Text style={styles.riskText}>Risco {riskLabel(occurrence.risco)}</Text></View>{occurrence.foto ? <View style={styles.photoBadge}><MaterialCommunityIcons name="camera" size={14} color="#DCFCE7" /><Text style={styles.photoBadgeText}>Evidência anexada</Text></View> : null}</View>
-      <View style={styles.priority}><MaterialCommunityIcons name="calendar-alert" size={23} color="#4ADE80" /><View><Text style={styles.priorityLabel}>INTERVENÇÃO RECOMENDADA</Text><Text style={styles.priorityValue}>{occurrence.previsaoIntervencao}</Text></View></View>
-      <View style={styles.card}><Text style={styles.sectionTitle}>Dados da inspeção</Text><Info icon="ruler" label="Altura estimada" value={`${occurrence.alturaGrama} cm`} /><Info icon="calendar-clock" label="Registrado em" value={formatDate(occurrence.data)} /><Info icon="account-hard-hat" label="Inspetor" value={occurrence.inspetor} /><Info icon="crosshairs-gps" label="Coordenadas" value={`${occurrence.latitude}, ${occurrence.longitude}`} /></View>
-      <View style={styles.card}><Text style={styles.sectionTitle}>Descrição</Text><Text style={styles.description}>{occurrence.descricao}</Text><View style={styles.tags}>{occurrence.tags.map((tag) => <View style={styles.tag} key={tag}><MaterialCommunityIcons name="leaf" size={12} color="#86EFAC" /><Text style={styles.tagText}>{tag}</Text></View>)}</View></View>
-      <TouchableOpacity style={styles.historyToggle} onPress={() => setShowHistory((value) => !value)} accessibilityRole="button" accessibilityState={{ expanded: showHistory }}><View style={styles.historyLabel}><MaterialCommunityIcons name="timeline-clock-outline" size={21} color="#4ADE80" /><View><Text style={styles.sectionTitle}>Linha do tempo</Text><Text style={styles.historyCount}>{occurrence.historico.length} {occurrence.historico.length === 1 ? 'evento' : 'eventos'}</Text></View></View><MaterialCommunityIcons name={showHistory ? 'chevron-up' : 'chevron-down'} size={23} color="#94A3B8" /></TouchableOpacity>
-      {showHistory ? <View style={styles.timeline}>{occurrence.historico.map((event, index) => <View style={styles.event} key={`${event.data}-${index}`}><View style={styles.dot} /><View style={styles.eventCopy}><Text style={styles.eventTitle}>{event.titulo}</Text><Text style={styles.eventDate}>{formatDate(event.data)}</Text><Text style={styles.eventDescription}>{event.descricao}</Text></View></View>)}</View> : null}
-      <TouchableOpacity disabled={!canAct} style={[styles.action, !canAct && styles.actionDisabled]} onPress={() => setShowConfirmation(true)} accessibilityRole="button" accessibilityState={{ disabled: !canAct }}><MaterialCommunityIcons name={canDispatch ? 'truck-delivery-outline' : canConclude ? 'check-decagram-outline' : 'check-circle-outline'} size={21} color={canAct ? '#07120A' : '#86EFAC'} /><Text style={[styles.actionText, !canAct && styles.actionTextDisabled]}>{canDispatch ? 'Despachar equipe' : canConclude ? 'Concluir atendimento' : 'Atendimento concluído'}</Text></TouchableOpacity>
-    </ScrollView>
-    <ConfirmModal visible={showConfirmation} title={canDispatch ? 'Despachar equipe?' : 'Concluir atendimento?'} message={canDispatch ? `Uma ordem de serviço será criada para ${occurrence.local}, ${occurrence.rodovia}.` : `Confirme que a roçagem em ${occurrence.local}, ${occurrence.rodovia}, foi executada e o trecho está liberado.`} confirmLabel={canDispatch ? 'Despachar' : 'Concluir'} icon={canDispatch ? 'truck-delivery-outline' : 'check-decagram-outline'} onCancel={() => setShowConfirmation(false)} onConfirm={confirmAction} />
-  </SafeAreaView>;
+
+  return (
+    <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
+      <DetailHeader occurrence={occurrence} onBack={onBack} />
+
+      <ScrollView contentContainerStyle={styles.content}>
+        <EvidenceHero occurrence={occurrence} />
+        <InspectionDetails occurrence={occurrence} />
+        <Timeline
+          events={occurrence.historico}
+          expanded={showHistory}
+          onToggle={() => setShowHistory((value) => !value)}
+        />
+        <ServiceAction status={occurrence.status} onPress={() => setShowConfirmation(true)} />
+      </ScrollView>
+
+      <ConfirmModal
+        visible={showConfirmation}
+        title={isDispatch ? 'Despachar equipe?' : 'Concluir atendimento?'}
+        message={
+          isDispatch
+            ? `Uma ordem de serviço será criada para ${place}.`
+            : `Confirme que a roçagem em ${place} foi executada e o trecho está liberado.`
+        }
+        confirmLabel={isDispatch ? 'Despachar' : 'Concluir'}
+        icon={isDispatch ? 'truck-delivery-outline' : 'check-decagram-outline'}
+        onCancel={() => setShowConfirmation(false)}
+        onConfirm={confirmAction}
+      />
+    </SafeAreaView>
+  );
 };
-const Info = ({ icon, label, value }: { icon: React.ComponentProps<typeof MaterialCommunityIcons>['name']; label: string; value: string }) => <View style={styles.info}><View style={styles.infoLabel}><MaterialCommunityIcons name={icon} size={17} color="#94A3B8" /><Text style={styles.infoLabelText}>{label}</Text></View><Text style={styles.infoValue}>{value}</Text></View>;
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#08110C' }, header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#1F3327' }, back: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center', marginRight: 4 }, eyebrow: { color: '#4ADE80', fontSize: 9, fontWeight: '700', letterSpacing: 1 }, headerTitle: { color: '#F8FAFC', fontSize: 19, fontWeight: '800' }, status: { marginLeft: 'auto', borderRadius: 15, paddingHorizontal: 10, paddingVertical: 6 }, statusText: { fontSize: 11, fontWeight: '700' }, content: { paddingBottom: 40 }, imageWrap: { height: 215, position: 'relative' }, image: { width: '100%', height: '100%' }, imageScrim: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(0,0,0,0.12)' }, risk: { position: 'absolute', left: 16, bottom: 14, flexDirection: 'row', alignItems: 'center', borderRadius: 18, paddingHorizontal: 11, paddingVertical: 7 }, riskText: { color: '#fff', fontSize: 12, fontWeight: '800', marginLeft: 5 }, photoBadge: { position: 'absolute', right: 16, bottom: 14, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(8,17,12,0.88)', borderRadius: 18, paddingHorizontal: 10, paddingVertical: 7 }, photoBadgeText: { color: '#DCFCE7', fontSize: 10, fontWeight: '700', marginLeft: 5 },
-  priority: { flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: '#10251A', padding: 16, margin: 18, borderRadius: 14, borderWidth: 1, borderColor: '#275A39' }, priorityLabel: { color: '#86EFAC', fontSize: 9, letterSpacing: 0.9, fontWeight: '700' }, priorityValue: { color: '#F8FAFC', fontSize: 17, fontWeight: '800', marginTop: 2 }, card: { backgroundColor: '#111C16', marginHorizontal: 18, marginBottom: 13, padding: 17, borderRadius: 14, borderWidth: 1, borderColor: '#294133' }, sectionTitle: { color: '#F8FAFC', fontSize: 15, fontWeight: '800' }, info: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderBottomColor: '#21362A', paddingVertical: 12 }, infoLabel: { flexDirection: 'row', alignItems: 'center' }, infoLabelText: { color: '#94A3B8', fontSize: 12, marginLeft: 7 }, infoValue: { color: '#E2E8F0', fontSize: 12, fontWeight: '600', maxWidth: '52%', textAlign: 'right' }, description: { color: '#CBD5E1', fontSize: 14, lineHeight: 21, marginTop: 11 }, tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 7, marginTop: 14 }, tag: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#183021', borderRadius: 8, paddingHorizontal: 9, paddingVertical: 6 }, tagText: { color: '#BBF7D0', fontSize: 10, marginLeft: 4 },
-  historyToggle: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginHorizontal: 18, padding: 16, borderRadius: 14, backgroundColor: '#111C16', borderWidth: 1, borderColor: '#294133' }, historyLabel: { flexDirection: 'row', alignItems: 'center', gap: 9 }, historyCount: { color: '#64748B', fontSize: 10, marginTop: 2 }, timeline: { marginHorizontal: 30, paddingTop: 15 }, event: { flexDirection: 'row', minHeight: 70 }, dot: { width: 10, height: 10, borderRadius: 5, backgroundColor: '#4ADE80', marginTop: 5, marginRight: 13 }, eventCopy: { flex: 1, borderLeftWidth: 1, borderLeftColor: '#294133', paddingLeft: 13, paddingBottom: 15 }, eventTitle: { color: '#F8FAFC', fontSize: 13, fontWeight: '700' }, eventDate: { color: '#4ADE80', fontSize: 10, marginTop: 2 }, eventDescription: { color: '#94A3B8', fontSize: 11, marginTop: 4 }, action: { marginHorizontal: 18, marginTop: 20, backgroundColor: '#4ADE80', borderRadius: 13, paddingVertical: 16, alignItems: 'center', justifyContent: 'center', flexDirection: 'row' }, actionDisabled: { backgroundColor: '#163722' }, actionText: { color: '#07120A', fontSize: 15, fontWeight: '800', marginLeft: 8 }, actionTextDisabled: { color: '#86EFAC' },
+  container: {
+    flex: 1,
+    backgroundColor: '#08110C',
+  },
+  content: {
+    paddingBottom: 40,
+  },
 });
