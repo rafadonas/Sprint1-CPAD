@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MOCK_OCORRENCIAS } from '../data/mock';
 import { Ocorrencia } from '../types';
 
-const STORAGE_KEY = '@motiva-verde/ocorrencias/v1';
+const STORAGE_KEY = '@motiva-verde/ocorrencias/v2';
 
 export const loadOccurrences = async (): Promise<Ocorrencia[]> => {
   try {

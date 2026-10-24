@@ -11,19 +11,31 @@ interface OccurrenceCardProps {
 
 export const OccurrenceCard: React.FC<OccurrenceCardProps> = ({ occurrence, onPress }) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.8} accessibilityRole="button" accessibilityLabel={`Ver ${occurrence.local} da ${occurrence.rodovia}`}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={onPress}
+      activeOpacity={0.8}
+      accessibilityRole="button"
+      accessibilityLabel={`Ver ${occurrence.local} da ${occurrence.rodovia}`}
+    >
       <View style={styles.header}>
-        <View style={[styles.iconContainer, { backgroundColor: `${RISK_COLORS[occurrence.risco]}26` }]}>
+        <View
+          style={[styles.iconContainer, { backgroundColor: `${RISK_COLORS[occurrence.risco]}26` }]}
+        >
           <MaterialCommunityIcons name="leaf" size={20} color={RISK_COLORS[occurrence.risco]} />
         </View>
         <View style={styles.headerInfo}>
           <View style={styles.titleRow}>
-            <Text style={styles.title} numberOfLines={1}>{occurrence.local} · {occurrence.rodovia}</Text>
+            <Text style={styles.title} numberOfLines={1}>
+              {occurrence.local} · {occurrence.rodovia}
+            </Text>
             <View style={[styles.badge, { backgroundColor: RISK_COLORS[occurrence.risco] }]}>
               <Text style={styles.badgeText}>{riskLabel(occurrence.risco)}</Text>
             </View>
           </View>
-          <Text style={styles.description} numberOfLines={2}>{occurrence.descricao}</Text>
+          <Text style={styles.description} numberOfLines={2}>
+            {occurrence.descricao}
+          </Text>
         </View>
       </View>
       <View style={styles.footer}>
@@ -35,8 +47,12 @@ export const OccurrenceCard: React.FC<OccurrenceCardProps> = ({ occurrence, onPr
           <MaterialCommunityIcons name="account-outline" size={14} color="#a0a0a0" />
           <Text style={styles.metaText}>{occurrence.inspetor}</Text>
         </View>
-        {occurrence.foto ? <MaterialCommunityIcons name="camera-outline" size={15} color="#86EFAC" /> : null}
-        <Text style={[styles.status, { color: STATUS_COLORS[occurrence.status] }]}>{occurrence.status}</Text>
+        {occurrence.foto ? (
+          <MaterialCommunityIcons name="camera-outline" size={15} color="#86EFAC" />
+        ) : null}
+        <Text style={[styles.status, { color: STATUS_COLORS[occurrence.status] }]}>
+          {occurrence.status}
+        </Text>
       </View>
     </TouchableOpacity>
   );

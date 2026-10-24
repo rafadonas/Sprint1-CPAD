@@ -16,7 +16,8 @@ const BOUNDS = {
   west: -47.65,
 };
 
-const MAP_URL = 'https://www.openstreetmap.org/export/embed.html?bbox=-47.65%2C-23.7%2C-46.45%2C-23.35&layer=mapnik';
+const MAP_URL =
+  'https://www.openstreetmap.org/export/embed.html?bbox=-47.65%2C-23.7%2C-46.45%2C-23.35&layer=mapnik';
 
 const positionFor = (occurrence: Ocorrencia) => {
   const latitude = Number(occurrence.latitude);
@@ -39,7 +40,11 @@ export const VegetationMap = ({ occurrences, onSelectOccurrence }: VegetationMap
       {occurrences.map((occurrence) => (
         <TouchableOpacity
           key={occurrence.id}
-          style={[styles.marker, positionFor(occurrence), { backgroundColor: RISK_COLORS[occurrence.risco] }]}
+          style={[
+            styles.marker,
+            positionFor(occurrence),
+            { backgroundColor: RISK_COLORS[occurrence.risco] },
+          ]}
           onPress={() => onSelectOccurrence(occurrence)}
           accessibilityRole="button"
           accessibilityLabel={`${occurrence.local}, risco ${riskLabel(occurrence.risco)}`}
@@ -52,7 +57,14 @@ export const VegetationMap = ({ occurrences, onSelectOccurrence }: VegetationMap
 );
 
 const styles = StyleSheet.create({
-  container: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, backgroundColor: '#D7E0D8' },
+  container: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#D7E0D8',
+  },
   webMap: {
     width: '100%',
     height: '100%',
